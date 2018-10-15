@@ -7,20 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-      "git": "git@github.com:jasonfavrod/pgmock.git"
+    "git": "git@github.com:jasonfavrod/pgmock.git"
   },
   "keywords": [
-      "pg",
-      "postgres",
-      "postgresql",
-      "mock",
-      "test",
-      "testing"
+    "pg",
+    "postgres",
+    "postgresql",
+    "mock",
+    "test",
+    "testing"
   ],
   "author": "Jason Favrod <mail@jasonfavrod.com>",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "md5": "^2.2.1"
   }
 }
-
