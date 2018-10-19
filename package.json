@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/pgmock.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha test/index.js"
   },
   "repository": {
     "git": "git@github.com:jasonfavrod/pgmock.git"
