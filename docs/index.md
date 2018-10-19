@@ -10,15 +10,19 @@
 -   [drop][6]
     -   [Parameters][7]
     -   [Examples][8]
--   [connect][9]
+-   [dropAll][9]
     -   [Examples][10]
-    -   [query][11]
-        -   [Parameters][12]
-        -   [Examples][13]
-    -   [release][14]
-        -   [Examples][15]
-    -   [end][16]
+-   [toString][11]
+    -   [Examples][12]
+-   [connect][13]
+    -   [Examples][14]
+    -   [query][15]
+        -   [Parameters][16]
         -   [Examples][17]
+    -   [release][18]
+        -   [Examples][19]
+    -   [end][20]
+        -   [Examples][21]
 
 ## pgmock
 
@@ -43,10 +47,10 @@ mock database.
 
 ### Parameters
 
--   `query` **[string][18]** An SQL query statement.
--   `valueDefs` **[array][19]** Contains the types of each value used
+-   `query` **[string][22]** An SQL query statement.
+-   `valueDefs` **[array][23]** Contains the types of each value used
     in the query.
--   `response` **[object][20]** The simulated expected response of
+-   `response` **[object][24]** The simulated expected response of
     the given query.
 
 ### Examples
@@ -66,7 +70,7 @@ Remove a query from the mock database.
 
 ### Parameters
 
--   `query` **[string][18]** An SQL statement added with the add method.
+-   `query` **[string][22]** An SQL statement added with the add method.
 
 ### Examples
 
@@ -74,7 +78,68 @@ Remove a query from the mock database.
 pgMock.drop("SELECT * FROM employees WHERE id = $1");
 ```
 
-Returns **[boolean][21]** true if removal successful, false otherwise.
+Returns **[boolean][25]** true if removal successful, false otherwise.
+
+## dropAll
+
+Flushes the mock database.
+
+### Examples
+
+```javascript
+pgMock.dropAll();
+```
+
+## toString
+
+Return a string representation of the mock database.
+
+### Examples
+
+```javascript
+pgMock.toString();
+```
+
+```javascript
+{
+    "3141ffa79e40392187830c52d0588f33": {
+        "query": "SELECT * FROM tpd_hawaii_it.projects",
+        "valDefs": [],
+        "response": {
+            "rowCount": 3,
+            "rows": [
+                {
+                    "title": "Test Project 0",
+                    "status": "pending",
+                    "priority": "low",
+                    "owner": "Favrod, Jason"
+                },
+                {
+                    "title": "Test Project 1",
+                    "status": "pending",
+                    "priority": "low",
+                    "owner": "Favrod, Jason"
+                },
+            ]
+        }
+    },
+    "81c4b35dfd07db7dff2cb0e91228e833": {
+        "query": "SELECT * FROM tpd_hawaii_it.projects WHERE title = $1",
+        "valDefs": ["string"],
+        "response": {
+            "rowCount": 1,
+            "rows": [
+                {
+                    "title": "Test Project 0",
+                    "status": "pending",
+                    "priority": "low",
+                    "owner": "Favrod, Jason"
+                }
+            ]
+        }
+    }
+}
+```
 
 ## connect
 
@@ -86,7 +151,7 @@ Get a simulated pg.Client or pg.Pool connection.
 const conn = pgmock.connect();
 ```
 
-Returns **[object][20]** 
+Returns **[object][24]** 
 
 ### query
 
@@ -94,8 +159,8 @@ Query the mock database.
 
 #### Parameters
 
--   `sql` **[string][18]** An SQL statement.
--   `values` **[array][19]** Arguments for the SQL statement or
+-   `sql` **[string][22]** An SQL statement.
+-   `values` **[array][23]** Arguments for the SQL statement or
     an empty array if no values in the statement.
 
 #### Examples
@@ -151,28 +216,36 @@ conn.release();
 
 [8]: #examples-2
 
-[9]: #connect
+[9]: #dropall
 
 [10]: #examples-3
 
-[11]: #query
+[11]: #tostring
 
-[12]: #parameters-2
+[12]: #examples-4
 
-[13]: #examples-4
+[13]: #connect
 
-[14]: #release
+[14]: #examples-5
 
-[15]: #examples-5
+[15]: #query
 
-[16]: #end
+[16]: #parameters-2
 
 [17]: #examples-6
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[18]: #release
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[19]: #examples-7
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[20]: #end
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[21]: #examples-8
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
