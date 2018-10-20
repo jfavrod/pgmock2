@@ -2,7 +2,7 @@
 
 ### Table of Contents
 
--   [pgmock][1]
+-   [pgmock2][1]
     -   [Examples][2]
 -   [add][3]
     -   [Parameters][4]
@@ -24,14 +24,14 @@
     -   [end][20]
         -   [Examples][21]
 
-## pgmock
+## pgmock2
 
 An NPM module for mocking a connection to a PostgreSQL database.
 
 ### Examples
 
 ```javascript
-const pgmock = require('pgmock'),
+const pgmock = require('pgmock2'),
 pgMock = pgmock();
 ```
 
@@ -200,7 +200,7 @@ Simulate ending a pg connection.
 conn.release();
 ```
 
-[1]: #pgmock
+[1]: #pgmock2
 
 [2]: #examples
 

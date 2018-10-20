@@ -13,8 +13,10 @@ used to simulate an instance of either class.
 
 Installation
 ------------
-Coming soon...
-
+Installation via `npm`.
+```
+npm i --dev-save pgmock2
+```
 
 Use
 ---
