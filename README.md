@@ -1,6 +1,8 @@
 pgmock
 ======
 
+[![Build Status](https://travis-ci.com/jasonfavrod/pgmock.svg?branch=master)](https://travis-ci.com/jasonfavrod/pgmock)
+
 An NPM module for mocking a connection to a PostgreSQL database.
 
 The module mocks a [pg](https://www.npmjs.com/package/pg) module
