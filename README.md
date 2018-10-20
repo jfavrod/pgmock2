@@ -1,5 +1,5 @@
-pgmock
-======
+pgmock2
+=======
 
 [![Build Status](https://travis-ci.com/jasonfavrod/pgmock.svg?branch=master)](https://travis-ci.com/jasonfavrod/pgmock)
 
@@ -23,7 +23,7 @@ simulation, we need to first `add` data.
 
 ```javascript
 const
-pgmock = require('pgmock'),
+pgmock = require('pgmock2'),
 pgMock = pgmock();
 
 pgMock.add('SELECT * FROM employees WHERE id = $1', ['number'], {

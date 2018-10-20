@@ -1,8 +1,8 @@
 const
-pgmock = require('../lib/pgmock'),
+pgmock = require('../lib/pgmock2'),
 assert = require('assert');
 
-describe('pgmock tests...', function() {
+describe('pgmock2 tests...', function() {
     describe('Test Instance', function() {
         let pgMock = pgmock();
 
