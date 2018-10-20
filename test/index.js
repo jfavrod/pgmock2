@@ -60,6 +60,65 @@ describe('pgmock tests...', function() {
     });
 
 
+    describe('Test `drop` Method', function() {
+        let pgMock = pgmock();
+        let data, queryHash, sql = 'SELECT * FROM schema.table;';
+        
+        pgMock.add(sql, [], {
+            rowCount: 1,
+            rows: [
+                {attrib1: 'val1', attrib2: 'val2'}
+            ]
+        });
+
+        data = JSON.parse(pgMock.toString());
+
+        for (query in data) {
+            queryHash = query
+        }
+
+        pgMock.drop(sql);
+        data = JSON.parse(pgMock.toString());
+
+        it('Should remove the added query.', function() {
+            assert.equal(data[queryHash], undefined);
+        });
+    });
+
+
+    describe('Test `dropAll` Method', function() {
+        let pgMock = pgmock();
+        let data, data2;
+        
+        pgMock.add('SELECT * FROM schema.table;', [], {
+            rowCount: 1,
+            rows: [
+                {attrib1: 'val1', attrib2: 'val2'}
+            ]
+        });
+
+        pgMock.dropAll();
+        data = JSON.parse(pgMock.toString());
+
+        it('Should remove the added query.', function() {
+            assert.equal(Object.keys(data).length, 0);
+        });
+        
+        pgMock.add('SELECT * FROM schema.table;', [], {
+            rowCount: 1,
+            rows: [
+                {attrib1: 'val1', attrib2: 'val2'}
+            ]
+        });
+
+        data2 = JSON.parse(pgMock.toString());
+
+        it('Should allow a new query to be added.', function() {
+            assert.equal(Object.keys(data2).length, 1);
+        });
+    });
+
+
     describe('Test `connect` Method', function() {
         let pgMock = pgmock();
         let pgClient;
@@ -82,6 +141,7 @@ describe('pgmock tests...', function() {
         });
     });
 
+
     describe('Test `connect.query` Method', function() {
         let pgMock = pgmock();
         let pgClient = pgMock.connect();
@@ -99,5 +159,31 @@ describe('pgmock tests...', function() {
             assert.equal(res.rows[0].attrib1, 'val1');
             assert.equal(res.rows[0].attrib2, 'val2');
         });
-    })
+
+        it('Should respond with an error if given wrong values.', async function() {
+            let res;
+
+            try {
+                res = await pgClient.query(query, ['hello']);
+            }
+            catch(err) {
+                res = err;
+            }
+
+            assert.ok(res.message.match(/invalid values/));
+        });
+
+        it('Should respond with an error if given invalid query.', async function() {
+            let res;
+
+            try {
+                res = await pgClient.query('select * schema.table', []);
+            }
+            catch(err) {
+                res = err;
+            }
+
+            assert.ok(res.message.match(/invalid query/));
+        });
+    });
 });
