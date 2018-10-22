@@ -1,7 +1,7 @@
 pgmock2
 =======
 
-[![Build Status](https://travis-ci.com/jasonfavrod/pgmock.svg?branch=master)](https://travis-ci.com/jasonfavrod/pgmock)
+[![Build Status](https://travis-ci.org/jasonfavrod/pgmock2.svg?branch=master)](https://travis-ci.org/jasonfavrod/pgmock2)
 
 An NPM module for mocking a connection to a PostgreSQL database.
 
