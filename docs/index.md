@@ -37,7 +37,6 @@ pgMock = pgmock();
 
 **Meta**
 
--   **version**: 1.0.0
 -   **author**: Jason Favrod &lt;mail@jasonfavrod.com>
 
 ## add
