@@ -1,15 +1,15 @@
 {
   "name": "pgmock2",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
-  "homepage": "https://jasonfavrod.github.io/pgmock2/",
+  "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/pgmock2.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha test/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jasonfavrod/pgmock2.git"
+    "url": "git@github.com:jfavrod/pgmock2.git"
   },
   "keywords": [
     "pg",
