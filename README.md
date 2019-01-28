@@ -1,9 +1,8 @@
 pgmock2
 =======
 
-![Package Version](https://img.shields.io/github/package-json/v/jfavrod/pgmock2.svg)
+[![Build Status](https://travis-ci.com/jfavrod/pgmock2.svg?branch=master)](https://travis-ci.com/jfavrod/pgmock2)
 ![Bundle Size](https://img.shields.io/bundlephobia/min/pgmock2.svg)
-[![Build Status](https://api.travis-ci.org/jfavrod/pgmock2.svg?branch=master)](https://travis-ci.org/jfavrod/pgmock2)
 [![Requirements Status](https://requires.io/github/jfavrod/pgmock2/requirements.svg?tag=v1.0.1)](https://requires.io/github/jfavrod/pgmock2/requirements/?tag=v1.0.1)
 
 
