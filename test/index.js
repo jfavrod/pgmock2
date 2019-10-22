@@ -1,10 +1,10 @@
 const
-pgmock = require('../lib/pgmock2'),
+pgmock = require('../lib').default,
 assert = require('assert');
 
 describe('pgmock2 tests...', function() {
     describe('Test Instance', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
 
         it('Should create an instance object.', function() {
             assert.equal(typeof(pgMock), 'object');
@@ -33,7 +33,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `toString` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
 
         it('Should return a string reprenstation of the data object.', function() {
             let str = pgMock.toString();
@@ -44,7 +44,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `add` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
         let len = pgMock.toString().length;
         
         pgMock.add('SELECT * FROM schema.table;', [], {
@@ -61,7 +61,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `drop` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
         let data, queryHash, sql = 'SELECT * FROM schema.table;';
         
         pgMock.add(sql, [], {
@@ -87,7 +87,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `dropAll` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
         let data, data2;
         
         pgMock.add('SELECT * FROM schema.table;', [], {
@@ -120,7 +120,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `connect` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
         let pgClient;
 
         it('Should return an object.', async function() {
@@ -143,7 +143,7 @@ describe('pgmock2 tests...', function() {
 
 
     describe('Test `connect.query` Method', function() {
-        let pgMock = pgmock();
+        let pgMock = new pgmock();
         let pgClient = pgMock.connect();
         let query = 'SELECT * FROM schema.table;';
         
@@ -170,7 +170,7 @@ describe('pgmock2 tests...', function() {
                 res = err;
             }
 
-            assert.ok(res.message.match(/invalid values/));
+            assert.ok(res.message.match(/invalid values/), `Expected invalid values, instead got ${res.message}`);
         });
 
         it('Should respond with an error if given invalid query.', async function() {
