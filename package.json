@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc -p tsconfig.json && cp src/index.js lib/index.js",
     "clean": "rm -rf lib/*",
     "lint": "",
-    "test": "./node_modules/.bin/mocha test/index.js"
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
   "repository": {
     "type": "git",
