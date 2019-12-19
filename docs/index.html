@@ -1,769 +1,271 @@
 <!doctype html>
-<html>
+<html class="default no-js">
 <head>
-  <meta charset='utf-8' />
-  <title>pgmock2 1.0.5 | Documentation</title>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
-  <link href='assets/style.css' type='text/css' rel='stylesheet' />
-  <link href='assets/github.css' type='text/css' rel='stylesheet' />
-  <link href='assets/split.css' type='text/css' rel='stylesheet' />
-  <meta name='description' content='An NPM module for mocking a connection to a PostgreSQL database.'>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>pgmock2</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class='documentation m0'>
-    <div class='flex'>
-      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
-        <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>pgmock2</h3>
-          <div class='mb1'><code>1.0.5</code></div>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='col12 block input'
-            type='text' />
-          <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#pgmock2'
-                  class="">
-                  pgmock2
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#add'
-                  class="">
-                  add
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#drop'
-                  class="">
-                  drop
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#dropall'
-                  class="">
-                  dropAll
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#tostring'
-                  class="">
-                  toString
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#connect'
-                  class=" toggle-sibling">
-                  connect
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#connectquery'
-                        class='regular pre-open'>
-                        .query
-                      </a></li>
-                    
-                      <li><a
-                        href='#connectrelease'
-                        class='regular pre-open'>
-                        .release
-                      </a></li>
-                    
-                      <li><a
-                        href='#connectend'
-                        class='regular pre-open'>
-                        .end
-                      </a></li>
-                    
-                    </ul>
-                  
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-            </ul>
-          </div>
-          <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
-        </div>
-      </div>
-      <div id='split-right' class='relative overflow-auto height-viewport-100'>
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">pgmock2</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> pgmock2</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#pgmock2" id="pgmock2" style="color: inherit; text-decoration: none;">
+					<h1>pgmock2</h1>
+				</a>
+				<p><a href="https://travis-ci.com/jfavrod/pgmock2"><img src="https://travis-ci.com/jfavrod/pgmock2.svg?branch=master" alt="Build Status"></a>
+					<img src="https://img.shields.io/bundlephobia/min/pgmock2.svg" alt="Bundle Size">
+				<a href="https://requires.io/github/jfavrod/pgmock2/requirements/?tag=v1.0.1"><img src="https://requires.io/github/jfavrod/pgmock2/requirements.svg?tag=v1.0.1" alt="Requirements Status"></a></p>
+				<p>An NPM module for mocking a connection to a PostgreSQL database.</p>
+				<p>The module mocks a <a href="https://www.npmjs.com/package/pg">pg</a> module
+					connection to a PostgreSQL database. Both the <code>pg.Client</code> and <code>pg.Pool</code>
+					classes have a <code>query</code> method, therefore the mock connection can be
+				used to simulate an instance of either class.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>Installation via <code>npm</code>.</p>
+				<pre><code>npm i --<span class="hljs-built_in">dev</span>-<span class="hljs-built_in">save</span> pgmock2</code></pre>
+				<a href="#use" id="use" style="color: inherit; text-decoration: none;">
+					<h2>Use</h2>
+				</a>
+				<p>The idea is to simulate a connection to a database. To enable that
+				simulation, we need to first <code>add</code> data.</p>
+				<a href="#adding-queries-and-their-responses" id="adding-queries-and-their-responses" style="color: inherit; text-decoration: none;">
+					<h3>Adding Queries and their Responses</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Simple type checking validation.</span>
+<span class="hljs-keyword">const</span> pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>);
+<span class="hljs-keyword">const</span> pg = <span class="hljs-keyword">new</span> pgmock();
 
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='pgmock2'>
-      pgmock2
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>An NPM module for mocking a connection to a PostgreSQL database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>pgmock2</div>
-   
-  
-  
-
-  
-  
-  
-  <div>Author: Jason Favrod &lt;mail@jasonfavrod.com&gt;</div>
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>),
-pgMock = pgmock();</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='add'>
-      add
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Add a query, it's value definitions, and response to the
-mock database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>add(query: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, valueDefs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a>, response: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>query</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    An SQL query statement.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>valueDefs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a>)</code>
-	    Contains the types of each value used
-in the query.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>response</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    The simulated expected response of
-the given query.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>pgMock.add(<span class="hljs-string">"SELECT * FROM employees WHERE id = $1"</span>, [<span class="hljs-string">'number'</span>], {
+pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>, [<span class="hljs-string">'number'</span>], {
     <span class="hljs-attr">rowCount</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">rows</span>: [
-        { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
     ]
-});</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='drop'>
-      drop
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Remove a query from the mock database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>drop(query: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>query</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    An SQL statement added with the add method.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        true if removal successful, false otherwise.
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>pgMock.drop(<span class="hljs-string">"SELECT * FROM employees WHERE id = $1"</span>);</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='dropall'>
-      dropAll
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Flushes the mock database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>dropAll()</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>pgMock.dropAll();</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='tostring'>
-      toString
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Return a string representation of the mock database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>toString()</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>pgMock.toString();</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>{
-    <span class="hljs-string">"3141ffa79e40392187830c52d0588f33"</span>: {
-        <span class="hljs-string">"query"</span>: <span class="hljs-string">"SELECT * FROM tpd_hawaii_it.projects"</span>,
-        <span class="hljs-string">"valDefs"</span>: [],
-        <span class="hljs-string">"response"</span>: {
-            <span class="hljs-string">"rowCount"</span>: <span class="hljs-number">3</span>,
-            <span class="hljs-string">"rows"</span>: [
-                {
-                    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Test Project 0"</span>,
-                    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
-                    <span class="hljs-string">"priority"</span>: <span class="hljs-string">"low"</span>,
-                    <span class="hljs-string">"owner"</span>: <span class="hljs-string">"Favrod, Jason"</span>
-                },
-                {
-                    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Test Project 1"</span>,
-                    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
-                    <span class="hljs-string">"priority"</span>: <span class="hljs-string">"low"</span>,
-                    <span class="hljs-string">"owner"</span>: <span class="hljs-string">"Favrod, Jason"</span>
-                },
-            ]
-        }
-    },
-    <span class="hljs-string">"81c4b35dfd07db7dff2cb0e91228e833"</span>: {
-        <span class="hljs-string">"query"</span>: <span class="hljs-string">"SELECT * FROM tpd_hawaii_it.projects WHERE title = $1"</span>,
-        <span class="hljs-string">"valDefs"</span>: [<span class="hljs-string">"string"</span>],
-        <span class="hljs-string">"response"</span>: {
-            <span class="hljs-string">"rowCount"</span>: <span class="hljs-number">1</span>,
-            <span class="hljs-string">"rows"</span>: [
-                {
-                    <span class="hljs-string">"title"</span>: <span class="hljs-string">"Test Project 0"</span>,
-                    <span class="hljs-string">"status"</span>: <span class="hljs-string">"pending"</span>,
-                    <span class="hljs-string">"priority"</span>: <span class="hljs-string">"low"</span>,
-                    <span class="hljs-string">"owner"</span>: <span class="hljs-string">"Favrod, Jason"</span>
-                }
-            ]
-        }
-    }
-}</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='connect'>
-      connect
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Get a simulated pg.Client or pg.Pool connection.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>connect</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> conn = pgmock.connect();</pre>
-    
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='connectquery'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>query(sql, values)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Query the mock database.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>query(sql: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a>)</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>sql</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    An SQL statement.
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a>)</code>
-	    Arguments for the SQL statement or
-an empty array if no values in the statement.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>conn.query(<span class="hljs-string">'select * from employees where id=$1;'</span>, [<span class="hljs-number">0</span>])
+});</code></pre>
+				<a href="#parameters-of-the-add-method" id="parameters-of-the-add-method" style="color: inherit; text-decoration: none;">
+					<h4>Parameters of the add Method</h4>
+				</a>
+				<a href="#query" id="query" style="color: inherit; text-decoration: none;">
+					<h5>Query</h5>
+				</a>
+				<p>The first parameter of the <code>add</code> method is the query we add to the mock DB.</p>
+				<p>Later, we can use a mock connection to retrieve a response to this query.
+					Internally, the query is normalized (disregards whitespace and is made
+				case insensitive).</p>
+				<a href="#values-validation" id="values-validation" style="color: inherit; text-decoration: none;">
+					<h5>Values Validation</h5>
+				</a>
+				<p>The second parameter is an array used to validate any values passed
+					with the query. In the example above, the <code>$1</code> requires a value. In the
+				validation array, we pass the string <code>number</code>.</p>
+				<p>Since the validation criterion is a string, the only valid values that
+					can be used at query time must be <code>typeof</code> &quot;<code>number</code>&quot;. Functions can
+				also be used to validate values (described later).</p>
+				<p>If a query does not require values, simply pass an empty array.</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Quering without passing values.</span>
+<span class="hljs-keyword">const</span>
+pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>),
+pg = <span class="hljs-keyword">new</span> pgmock();
+
+pg.add(<span class="hljs-string">'SELECT * FROM employees'</span>, [], {
+    <span class="hljs-attr">rowCount</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">rows</span>: [
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
+        <span class="hljs-comment">// ... more employees omitted ...</span>
+    ]
+});</code></pre>
+				<a href="#query-response" id="query-response" style="color: inherit; text-decoration: none;">
+					<h5>Query Response</h5>
+				</a>
+				<p>The thrid parameter is the response returned if the values supplied to
+				to the <code>query</code> method were determined to be valid.</p>
+				<p>The response MUST have the same interface as a <code>pg.QueryResponse</code>.</p>
+				<a href="#quering-the-mock-db" id="quering-the-mock-db" style="color: inherit; text-decoration: none;">
+					<h3>Quering the Mock DB</h3>
+				</a>
+				<p>Now we can create a mock connection and query for data.</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Get a mock db connection.</span>
+<span class="hljs-keyword">const</span> conn = pg.connect();
+
+<span class="hljs-comment">// Query the mock connection.</span>
+conn.query(<span class="hljs-string">'select * from employees where id=$1;'</span>, [<span class="hljs-number">1</span>])
 .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(data))
-.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(err.message));</pre>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>{
-  <span class="hljs-attr">rowCount</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">rows</span>: [
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> } 
-  ]
-}</pre>
-    
-  
+.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(err.message));</code></pre>
+				<p>Since the query is valid and the values passed are correct in number
+				and type, we should see the expected output.</p>
+				<pre><code>{ <span class="hljs-attribute">rowCount</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attribute">rows</span>:
+   [ { <span class="hljs-attribute">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attribute">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attribute">position</span>: <span class="hljs-string">'application developer'</span> } ] }</code></pre>
+				<a href="#using-functions-for-validation" id="using-functions-for-validation" style="color: inherit; text-decoration: none;">
+					<h3>Using Functions for Validation</h3>
+				</a>
+				<p>For more advanced query value validation (beyond just simple type
+				validation) we can use functions.</p>
+				<p>Let&#39;s say that our employee IDs must be whole numbers greater than 0.
+				We can use a validation function like this:</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// Advanced validation with functions.</span>
+<span class="hljs-keyword">const</span> pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>);
+<span class="hljs-keyword">const</span> pg = <span class="hljs-keyword">new</span> pgmock();
 
-  
+<span class="hljs-keyword">const</span> validateId = <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> (
+        <span class="hljs-keyword">typeof</span>(id) === <span class="hljs-string">'number'</span>
+        &amp;&amp; <span class="hljs-built_in">isFinite</span>(id)
+        &amp;&amp; id &gt; <span class="hljs-number">0</span>
+        &amp;&amp; id === <span class="hljs-built_in">Number</span>(id.toFixed(<span class="hljs-number">0</span>)
+    );
+}
 
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='connectrelease'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>release()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Simulate releasing a pg connection.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>release()</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>conn.release();</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='connectend'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>end()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Simulate ending a pg connection.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>end()</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'>conn.release();</pre>
-    
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
+pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>, [validateId], {
+    <span class="hljs-attr">rowCount</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">rows</span>: [
+        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
+    ]
+});</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_pgmock2_.html">&quot;PGMock2&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_.html">&quot;interfaces&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
-
-  
-
-  
-
-  
-</section>
-
-        
-      </div>
-    </div>
-  <script src='assets/anchor.js'></script>
-  <script src='assets/split.js'></script>
-  <script src='assets/site.js'></script>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
