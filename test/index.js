@@ -1,5 +1,5 @@
 const
-pgmock = require('../lib').default,
+pgmock = require('../lib'),
 assert = require('assert');
 
 describe('pgmock2 tests...', function() {

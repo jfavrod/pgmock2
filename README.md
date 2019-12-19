@@ -29,9 +29,9 @@ simulation, we need to first `add` data.
 ```javascript
 const
 pgmock = require('pgmock2'),
-pgMock = pgmock();
+pg = new pgmock();
 
-pgMock.add('SELECT * FROM employees WHERE id = $1', ['number'], {
+pg.add('SELECT * FROM employees WHERE id = $1', ['number'], {
     rowCount: 1,
     rows: [
         { id: 0, name: 'John Smith', position: 'application developer' }
@@ -42,7 +42,7 @@ pgMock.add('SELECT * FROM employees WHERE id = $1', ['number'], {
 Now we can create a mock connection and query for this data.
 
 ```javascript
-const conn = pgMock.connect();
+const conn = pg.connect();
 
 conn.query('select * from employees where id=$1;', [0])
 .then(data => console.log(data))
