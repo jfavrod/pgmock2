@@ -1,11 +1,14 @@
 {
   "name": "pgmock2",
-  "version": "1.0.5",
+  "version": "1.1.0-beta.3",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
-  "main": "lib/pgmock2.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/index.js"
+    "build": "npm run clean && tsc -p tsconfig.json && cp src/index.js lib/index.js",
+    "clean": "rm -rf lib/*",
+    "lint": "",
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,12 @@
   "author": "Jason Favrod <mail@jasonfavrod.com> (http://jasonfavrod.com)",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "@types/md5": "^2.1.33",
+    "@types/mocha": "^5.2.7",
+    "@types/pg": "^7.11.1",
+    "mocha": "^5.2.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
   },
   "dependencies": {
     "md5": "^2.2.1"
