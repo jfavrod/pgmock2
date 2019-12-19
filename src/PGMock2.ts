@@ -47,10 +47,9 @@ export default class PGMock2 {
     /**
      * Get a simulated pg.Client or pg.Pool connection.
      * @namespace connect
-     * @returns {object}
      * @example const conn = pgmock.connect();
      */
-    public connect(): object {
+    public connect(): IPGClient {
         const connection: IPGClient = {
             /**
              * Simulate ending a pg connection.

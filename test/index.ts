@@ -1,6 +1,6 @@
-const
-pgmock = require('../lib'),
-assert = require('assert');
+import pgmock from '../src/PGMock2';
+import assert from 'assert';
+import 'mocha';
 
 describe('pgmock2 tests...', function() {
     describe('Test Instance', function() {
@@ -73,7 +73,7 @@ describe('pgmock2 tests...', function() {
 
         data = JSON.parse(pgMock.toString());
 
-        for (query in data) {
+        for (const query in data) {
             queryHash = query
         }
 
@@ -155,7 +155,7 @@ describe('pgmock2 tests...', function() {
         });
 
         it('Should have the values of the added item.', async function() {
-            let res = await pgClient.query(query);
+            let res = await pgClient.query(query, []);
             assert.equal(res.rows[0].attrib1, 'val1');
             assert.equal(res.rows[0].attrib2, 'val2');
         });
