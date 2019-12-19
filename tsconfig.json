@@ -8,5 +8,8 @@
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "./test"
+  ]
 }
