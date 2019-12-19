@@ -10,6 +10,9 @@
     "lint": "",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jfavrod/pgmock2.git"

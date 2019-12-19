@@ -186,4 +186,67 @@ describe('pgmock2 tests...', function() {
             assert.ok(res.message.match(/invalid query/));
         });
     });
+
+    describe('connect.query with function validation and valid input', () => {
+        const pg = new pgmock();
+        const client = pg.connect();
+
+        const validId = (id) => {
+            return id > 0 && id === Number(parseInt(id));
+        };
+
+        pg.add('SELECT * FROM employees WHERE id = $1', [validId], {
+            rowCount: 1,
+            rows: [
+                { id: 1, name: 'John Smith', position: 'application developer' }
+            ]
+        });
+
+        it('Should return a valid response', async () => {
+            const res = await client.query('SELECT * FROM employees WHERE id = $1', [1]);
+            assert.strictEqual(res.rowCount, 1);
+            assert.strictEqual(res.rows[0].id, 1);
+            assert.strictEqual(res.rows[0].name, 'John Smith');
+        });
+    });
+
+    describe('connect.query with function validation and invalid input', () => {
+        const pg = new pgmock();
+        const client = pg.connect();
+
+        const validId = (id: any) => {
+            return typeof(id) === 'number' && isFinite(id) && id > 0 && id === Number(id.toFixed(0));
+        };
+
+        pg.add('SELECT * FROM employees WHERE id = $1', [validId], {
+            rowCount: 1,
+            rows: [
+                { id: 1, name: 'John Smith', position: 'application developer' }
+            ]
+        });
+
+        it('Should reject if value is a string.', async () => {
+            const badValues = async () => {
+                await client.query('SELECT * FROM employees WHERE id = $1', ['1']);
+            }
+
+            assert.rejects(badValues);
+        });
+
+        it('Should reject if value is 0 or less.', async () => {
+            const badValues = async () => {
+                await client.query('SELECT * FROM employees WHERE id = $1', [0]);
+            }
+
+            assert.rejects(badValues);
+        });
+
+        it('Should reject if value is a float.', async () => {
+            const badValues = async () => {
+                await client.query('SELECT * FROM employees WHERE id = $1', [1.1]);
+            }
+
+            assert.rejects(badValues);
+        });
+    });
 });

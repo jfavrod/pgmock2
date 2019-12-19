@@ -1,4 +1,5 @@
 import md5 from 'md5';
+import { QueryResult } from 'pg';
 import { IPGClient } from './interfaces';
 
 /**
@@ -14,6 +15,9 @@ export default class PGMock2 {
     private data: any = {};
     private latency = 20;
 
+    /**
+     * Set the simulated network latency (default 20 ms).
+     */
     public setLatency(latency: number): void {
         this.latency = latency;
     }
@@ -74,7 +78,7 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (sql: string, values: any[]) => {
+            query: (sql: string, values: any[]): Promise<QueryResult> => {
                 let norm = this.normalize(sql);
                 const validQuery = this.data[norm];
 
@@ -194,7 +198,7 @@ export default class PGMock2 {
                     if (typeof(val) !== defs[i]) bool = false;
                 }
                 else if (typeof(defs[i]) === 'function') {
-                    if (!defs[i](val)) bool = false;
+                    bool = defs[i](val);
                 }
             });
         }
