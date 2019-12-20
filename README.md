@@ -13,7 +13,6 @@ connection to a PostgreSQL database. Both the `pg.Client` and `pg.Pool`
 classes have a `query` method, therefore the mock connection can be
 used to simulate an instance of either class.
 
-
 Installation
 ------------
 Installation via `npm`.
@@ -21,8 +20,8 @@ Installation via `npm`.
 npm i --dev-save pgmock2
 ```
 
-Use
----
+Usage
+-----
 The idea is to simulate a connection to a database. To enable that
 simulation, we need to first `add` data.
 
@@ -130,3 +129,17 @@ pg.add('SELECT * FROM employees WHERE id = $1', [validateId], {
     ]
 });
 ```
+
+Tests
+-----
+Tests are found in the `test` directory. To execute them, run:
+
+```
+npm run test
+```
+
+Documentation
+-------------
+Live documentation: [here](https://jfavrod.github.io/pgmock2)
+
+To (re)generate documentation: `npm run docs`
