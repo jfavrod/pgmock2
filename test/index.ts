@@ -2,40 +2,40 @@ import pgmock from '../src/PGMock2';
 import assert from 'assert';
 import 'mocha';
 
-describe('pgmock2 tests...', function() {
-    describe('Test Instance', function() {
+describe('pgmock2 tests...', () => {
+    describe('Test Instance', () => {
         let pgMock = new pgmock();
 
-        it('Should create an instance object.', function() {
+        it('Should create an instance object.', () => {
             assert.equal(typeof(pgMock), 'object');
         });
 
-        it('Should have an add method.', function() {
+        it('Should have an add method.', () => {
             assert.equal(typeof(pgMock.add), 'function');
         });
 
-        it('Should have a connect method.', function() {
+        it('Should have a connect method.', () => {
             assert.equal(typeof(pgMock.connect), 'function');
         });
 
-        it('Should have a drop method.', function() {
+        it('Should have a drop method.', () => {
             assert.equal(typeof(pgMock.drop), 'function');
         });
 
-        it('Should have a dropAll method.', function() {
+        it('Should have a dropAll method.', () => {
             assert.equal(typeof(pgMock.dropAll), 'function');
         });
 
-        it('Should have a toString method.', function() {
+        it('Should have a toString method.', () => {
             assert.equal(typeof(pgMock.toString), 'function');
         });
     });
 
 
-    describe('Test `toString` Method', function() {
+    describe('Test `toString` Method', () => {
         let pgMock = new pgmock();
 
-        it('Should return a string reprenstation of the data object.', function() {
+        it('Should return a string reprenstation of the data object.', () => {
             let str = pgMock.toString();
             assert.equal(typeof(str), 'string');
             assert.equal(typeof(JSON.parse(str)), 'object');
@@ -43,7 +43,7 @@ describe('pgmock2 tests...', function() {
     });
 
 
-    describe('Test `add` Method', function() {
+    describe('Test `add` Method', () => {
         let pgMock = new pgmock();
         let len = pgMock.toString().length;
         
@@ -54,13 +54,13 @@ describe('pgmock2 tests...', function() {
             ]
         });
 
-        it('Should have new data in the mock database.', function() {
+        it('Should have new data in the mock database.', () => {
             assert.ok(len < pgMock.toString().length);
         });
     });
 
 
-    describe('Test `drop` Method', function() {
+    describe('Test `drop` Method', () => {
         let pgMock = new pgmock();
         let data, queryHash, sql = 'SELECT * FROM schema.table;';
         
@@ -80,13 +80,13 @@ describe('pgmock2 tests...', function() {
         pgMock.drop(sql);
         data = JSON.parse(pgMock.toString());
 
-        it('Should remove the added query.', function() {
+        it('Should remove the added query.', () => {
             assert.equal(data[queryHash], undefined);
         });
     });
 
 
-    describe('Test `dropAll` Method', function() {
+    describe('Test `dropAll` Method', () => {
         let pgMock = new pgmock();
         let data, data2;
         
@@ -100,7 +100,7 @@ describe('pgmock2 tests...', function() {
         pgMock.dropAll();
         data = JSON.parse(pgMock.toString());
 
-        it('Should remove the added query.', function() {
+        it('Should remove the added query.', () => {
             assert.equal(Object.keys(data).length, 0);
         });
         
@@ -113,36 +113,36 @@ describe('pgmock2 tests...', function() {
 
         data2 = JSON.parse(pgMock.toString());
 
-        it('Should allow a new query to be added.', function() {
+        it('Should allow a new query to be added.', () => {
             assert.equal(Object.keys(data2).length, 1);
         });
     });
 
 
-    describe('Test `connect` Method', function() {
+    describe('Test `connect` Method', () => {
         let pgMock = new pgmock();
         let pgClient;
 
-        it('Should return an object.', async function() {
+        it('Should return an object.', async () => {
             pgClient = await pgMock.connect();
             assert.equal(typeof(pgClient), 'object');
         });
 
-        it('Should have a query method.', function() {
+        it('Should have a query method.', () => {
             assert.equal(typeof(pgClient.query), 'function');
         });
 
-        it('Should have a release method.', function() {
+        it('Should have a release method.', () => {
             assert.equal(typeof(pgClient.release), 'function');
         });
 
-        it('Should have an end method.', function() {
+        it('Should have an end method.', () => {
             assert.equal(typeof(pgClient.end), 'function');
         });
     });
 
 
-    describe('Test `connect.query` Method', function() {
+    describe('Test `connect.query` Method', () => {
         let pgMock = new pgmock();
         let pgClient = pgMock.connect();
         let query = 'SELECT * FROM schema.table;';
@@ -154,13 +154,13 @@ describe('pgmock2 tests...', function() {
             ]
         });
 
-        it('Should have the values of the added item.', async function() {
+        it('Should have the values of the added item.', async () => {
             let res = await pgClient.query(query, []);
             assert.equal(res.rows[0].attrib1, 'val1');
             assert.equal(res.rows[0].attrib2, 'val2');
         });
 
-        it('Should respond with an error if given wrong values.', async function() {
+        it('Should respond with an error if given wrong values.', async () => {
             let res;
 
             try {
@@ -173,7 +173,7 @@ describe('pgmock2 tests...', function() {
             assert.ok(res.message.match(/invalid values/), `Expected invalid values, instead got ${res.message}`);
         });
 
-        it('Should respond with an error if given invalid query.', async function() {
+        it('Should respond with an error if given invalid query.', async () => {
             let res;
 
             try {

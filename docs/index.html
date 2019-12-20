@@ -80,8 +80,8 @@
 				</a>
 				<p>Installation via <code>npm</code>.</p>
 				<pre><code>npm i --<span class="hljs-built_in">dev</span>-<span class="hljs-built_in">save</span> pgmock2</code></pre>
-				<a href="#use" id="use" style="color: inherit; text-decoration: none;">
-					<h2>Use</h2>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
 				</a>
 				<p>The idea is to simulate a connection to a database. To enable that
 				simulation, we need to first <code>add</code> data.</p>
@@ -178,6 +178,15 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>,
         { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
     ]
 });</code></pre>
+				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+					<h2>Tests</h2>
+				</a>
+				<p>Tests are found in the <code>test</code> directory. To execute them, run:</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span></code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Live documentation: <a href="https://jfavrod.github.io/pgmock2">here</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -186,16 +195,16 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>,
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_pgmock2_.html">&quot;PGMock2&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_interfaces_.html">&quot;interfaces&quot;</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/pgmock2.html" class="tsd-kind-icon">PGMock2</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ipgclient.html" class="tsd-kind-icon">IPGClient</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

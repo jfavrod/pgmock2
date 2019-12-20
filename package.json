@@ -5,9 +5,13 @@
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run clean && tsc -p tsconfig.json && cp src/index.js lib/index.js",
+    "build": "run-s lint test clean compile index",
+    "compile": "tsc -p tsconfig.json",
     "clean": "rm -rf lib/*",
-    "lint": "",
+    "docs": "typedoc --mode file --out docs src",
+    "index": "cp src/index.js lib/index.js",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "publish": "run-s build docs publish",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
   "repository": {
@@ -29,7 +33,9 @@
     "@types/mocha": "^5.2.7",
     "@types/pg": "^7.11.1",
     "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.5",
     "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
     "typedoc": "^0.15.5",
     "typescript": "^3.7.3"
   },

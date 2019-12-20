@@ -8,19 +8,17 @@ import { IPGClient } from './interfaces';
  * @example
  * ```
  * const PGMock2 = require('pgmock2'),
- * const pgmock = new PGMock2(); 
+ * const pgmock = new PGMock2();
  * ```
  */
 export default class PGMock2 {
+
+
+
+
+
     private data: any = {};
     private latency = 20;
-
-    /**
-     * Set the simulated network latency (default 20 ms).
-     */
-    public setLatency(latency: number): void {
-        this.latency = latency;
-    }
 
     /**
      * Add a query, it's value definitions, and response to the
@@ -42,12 +40,11 @@ export default class PGMock2 {
      */
     public add(query: string, valueDefs: any[], response: object) {
         this.data[this.normalize(query)] = {
-            query: query,
+            query,
+            response,
             valDefs: valueDefs,
-            response: response
         };
-    };
-
+    }
     /**
      * Get a simulated pg.Client or pg.Pool connection.
      * @namespace connect
@@ -74,29 +71,29 @@ export default class PGMock2 {
              * @example {
              *   rowCount: 1,
              *   rows: [
-             *       { id: 0, name: 'John Smith', position: 'application developer' } 
+             *       { id: 0, name: 'John Smith', position: 'application developer' }
              *   ]
              * }
              */
             query: (sql: string, values: any[]): Promise<QueryResult> => {
-                let norm = this.normalize(sql);
+                const norm = this.normalize(sql);
                 const validQuery = this.data[norm];
 
                 return new Promise( (resolve, reject) => {
                     if (validQuery && this.validVals(values, validQuery.valDefs)) {
-                        setTimeout(function() {
-                            resolve(validQuery.response)
+                        setTimeout(() => {
+                            resolve(validQuery.response);
                         }, this.latency);
                     }
                     else {
                         if (!validQuery) {
-                            setTimeout(function() {
-                                reject(new Error('invalid query: ' + sql + ' query hash: ' + norm))
+                            setTimeout(() => {
+                                reject(new Error('invalid query: ' + sql + ' query hash: ' + norm));
                             }, this.latency);
                         }
                         else {
-                            setTimeout(function() {
-                                reject(new Error('invalid values: ' + JSON.stringify(values)))
+                            setTimeout(() => {
+                                reject(new Error('invalid values: ' + JSON.stringify(values)));
                             }, this.latency);
                         }
                     }
@@ -112,8 +109,7 @@ export default class PGMock2 {
         };
 
         return connection;
-    };
-
+    }
     /**
      * Remove a query from the mock database.
      * @param {string} query An SQL statement added with the add method.
@@ -121,20 +117,18 @@ export default class PGMock2 {
      */
     public drop(query: string): boolean {
         return delete this.data[this.normalize(query)];
-    };
-
+    }
     /**
      * Flushes the mock database.
      */
     public dropAll(): void {
         this.data = {};
-    };
-
-    // Return the rawQuery in lowercase, without spaces nor
-    // a trailing semicolon.
-    private normalize(rawQuery: string): string {
-        const norm = rawQuery.toLowerCase().replace(/\s/g,'');
-        return md5(norm.replace(/;$/,'')).toString();
+    }
+    /**
+     * Set the simulated network latency (default 20 ms).
+     */
+    public setLatency(latency: number): void {
+        this.latency = latency;
     }
 
     /**
@@ -183,7 +177,13 @@ export default class PGMock2 {
      */
     public toString() {
         return JSON.stringify(this.data, null, 2);
-    };
+    }
+    // Return the rawQuery in lowercase, without spaces nor
+    // a trailing semicolon.
+    private normalize(rawQuery: string): string {
+        const norm = rawQuery.toLowerCase().replace(/\s/g, '');
+        return md5(norm.replace(/;$/, '')).toString();
+    }
 
     private validVals(values: any[], defs: any[]) {
         let bool = true;
@@ -195,7 +195,7 @@ export default class PGMock2 {
 
             values.forEach( (val, i) => {
                 if (typeof(defs[i]) === 'string') {
-                    if (typeof(val) !== defs[i]) bool = false;
+                    if (typeof(val) !== defs[i]) { bool = false; }
                 }
                 else if (typeof(defs[i]) === 'function') {
                     bool = defs[i](val);
