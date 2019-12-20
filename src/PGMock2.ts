@@ -12,11 +12,6 @@ import { IPGClient } from './interfaces';
  * ```
  */
 export default class PGMock2 {
-
-
-
-
-
     private data: any = {};
     private latency = 20;
 
@@ -33,7 +28,7 @@ export default class PGMock2 {
      * pgmock.add("SELECT * FROM employees WHERE id = $1", ['number'], {
      *     rowCount: 1,
      *     rows: [
-     *         { id: 0, name: 'John Smith', position: 'application developer' }
+     *         { id: 1, name: 'John Smith', position: 'application developer' }
      *     ]
      * });
      * ```
@@ -71,7 +66,7 @@ export default class PGMock2 {
              * @example {
              *   rowCount: 1,
              *   rows: [
-             *       { id: 0, name: 'John Smith', position: 'application developer' }
+             *       { id: 1, name: 'John Smith', position: 'application developer' }
              *   ]
              * }
              */
@@ -137,7 +132,7 @@ export default class PGMock2 {
      * ```
      * {
      *     "3141ffa79e40392187830c52d0588f33": {
-     *         "query": "SELECT * FROM tpd_hawaii_it.projects",
+     *         "query": "SELECT * FROM it.projects",
      *         "valDefs": [],
      *         "response": {
      *             "rowCount": 3,
@@ -158,7 +153,7 @@ export default class PGMock2 {
      *         }
      *     },
      *     "81c4b35dfd07db7dff2cb0e91228e833": {
-     *         "query": "SELECT * FROM tpd_hawaii_it.projects WHERE title = $1",
+     *         "query": "SELECT * FROM it.projects WHERE title = $1",
      *         "valDefs": ["string"],
      *         "response": {
      *             "rowCount": 1,
@@ -195,10 +190,14 @@ export default class PGMock2 {
 
             values.forEach( (val, i) => {
                 if (typeof(defs[i]) === 'string') {
+                    // Change bool to false if typeof val doesn't
+                    // match value definition string.
                     if (typeof(val) !== defs[i]) { bool = false; }
                 }
                 else if (typeof(defs[i]) === 'function') {
-                    bool = defs[i](val);
+                    // Change bool to false if false returned from
+                    // value definition function.
+                    if (!defs[i](val)) { bool = false; }
                 }
             });
         }
