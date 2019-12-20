@@ -1,6 +1,6 @@
 {
   "name": "pgmock2",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.3",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
@@ -11,7 +11,7 @@
     "docs": "typedoc --mode file --out docs src",
     "index": "cp src/index.js lib/index.js",
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "publish": "run-s build docs publish",
+    "publish": "run-s build docs && npm publish",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
   "repository": {
