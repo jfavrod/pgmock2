@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
     "declaration": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
     "outDir": "./lib",
     "rootDir": "./src",
     "strict": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true
+    "target": "es5"
   },
   "exclude": [
+    "./docs",
+    "./lib",
     "./test"
-  ]
+  ],
+  "typedocOptions": {
+    "mode": "file",
+    "out": "docs"
+  }
 }
