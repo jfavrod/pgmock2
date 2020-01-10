@@ -1,17 +1,18 @@
 {
   "name": "pgmock2",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
   "scripts": {
-    "build": "run-s lint test clean compile index",
-    "compile": "tsc -p tsconfig.json",
-    "clean": "rm -rf lib/*",
-    "docs": "typedoc --mode file --out docs src",
-    "index": "cp src/index.js lib/index.js",
+    "build": "run-s lint test compile",
+    "clean": "rm -rf lib",
+    "clean-compile": "run-s clean compile",
+    "compile": "tsc -p tsconfig.json --incremental",
+    "docs": "typedoc src",
     "lint": "tslint -c tslint.json src/**/*.ts",
-    "pub": "npm run build && npm run docs && npm publish",
+    "npm:publish": "npm publish",
+    "pub": "run-s lint test clean-compile docs npm:publish",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
   },
   "repository": {
@@ -37,7 +38,7 @@
     "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
     "typedoc": "^0.15.5",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "md5": "^2.2.1"

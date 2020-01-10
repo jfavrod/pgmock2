@@ -40,6 +40,7 @@ export default class PGMock2 {
             valDefs: valueDefs,
         };
     }
+
     /**
      * Get a simulated pg.Client or pg.Pool connection.
      * @namespace connect
@@ -105,6 +106,7 @@ export default class PGMock2 {
 
         return connection;
     }
+
     /**
      * Remove a query from the mock database.
      * @param {string} query An SQL statement added with the add method.
@@ -113,12 +115,14 @@ export default class PGMock2 {
     public drop(query: string): boolean {
         return delete this.data[this.normalize(query)];
     }
+
     /**
      * Flushes the mock database.
      */
     public dropAll(): void {
         this.data = {};
     }
+
     /**
      * Set the simulated network latency (default 20 ms).
      */
@@ -173,6 +177,7 @@ export default class PGMock2 {
     public toString() {
         return JSON.stringify(this.data, null, 2);
     }
+
     // Return the rawQuery in lowercase, without spaces nor
     // a trailing semicolon.
     private normalize(rawQuery: string): string {
