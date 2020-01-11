@@ -3,12 +3,12 @@ import PGMock2 from './PGMock2';
 
 export default PGMock2;
 
-export function getClient() {
-    const pgmock = new PGMock2();
-    return pgmock as unknown as Client;
+export function getClient(pgmock?: PGMock2) {
+    pgmock = pgmock || new PGMock2();
+    return pgmock.connect() as unknown as Client;
 }
 
 export function getPool(pgmock?: PGMock2) {
     pgmock = pgmock || new PGMock2();
-    return pgmock as unknown as Pool;
+    return pgmock.connect() as unknown as Pool;
 }

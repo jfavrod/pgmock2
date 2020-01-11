@@ -1,19 +1,21 @@
 {
   "name": "pgmock2",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.8",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
   "scripts": {
     "build": "run-s lint test compile",
-    "clean": "rm -rf lib",
-    "clean-compile": "run-s clean compile",
+    "build:image": "docker image build -t pgmock2:dev .",
+    "clean": "rm -rf tsconfig.tsbuildinfo lib",
+    "clean:compile": "run-s clean compile",
     "compile": "tsc -p tsconfig.json",
     "docs": "typedoc src",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "npm:publish": "npm publish",
-    "pub": "run-s lint test clean-compile docs npm:publish",
-    "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts"
+    "pub": "run-s lint test:docker clean docs compile npm:publish",
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts",
+    "test:docker": "docker run -v ${PWD}:/app -v /app/node_modules --rm pgmock2:dev"
   },
   "repository": {
     "type": "git",
@@ -41,7 +43,8 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "md5": "^2.2.1"
+    "md5": "^2.2.1",
+    "pg": "^7.17.1"
   },
   "engines": {
     "node": "^10.15.0",

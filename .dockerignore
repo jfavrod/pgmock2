@@ -1,0 +1,10 @@
+.git
+.gitignore
+.npmignore
+.travis.yml
+Jenkinsfile
+LICENSE.txt
+README.md
+tsconfig.tsbuildinfo
+docs/
+node_modules/

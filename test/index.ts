@@ -1,6 +1,8 @@
-import pgmock from '../src/PGMock2';
 import assert from 'assert';
 import 'mocha';
+
+import pgmock, { getPool } from '../src';
+import ReqPgPool from './ReqPgPool';
 
 describe('pgmock2 tests...', () => {
     describe('Test Instance', () => {
@@ -248,5 +250,48 @@ describe('pgmock2 tests...', () => {
 
             assert.rejects(badValues);
         });
+    });
+
+    describe('Use getPool', () => {
+        const pool = getPool();
+
+        it('Should satisfy Pool parameter', () => {
+            const reqPgPool = new ReqPgPool(pool);
+            assert.ok(reqPgPool.hasPool());
+        });
+    });
+
+    describe('Use getPool with pgmock2 instance', () => {
+        const pg = new pgmock();
+        const pool = getPool(pg);
+
+        pg.add('SELECT * FROM employees', [], {
+            rowCount: 3,
+            rows: [
+                { id: 1, name: 'John Smith', position: 'application developer' },
+                { id: 2, name: 'Jane Smith', position: 'application developer' },
+                { id: 3, name: 'Robert Polson', position: 'project manager' }
+            ]
+        });
+
+        it('Should satisfy Pool parameter', () => {
+            const reqPgPool = new ReqPgPool(pool);
+            assert.ok(reqPgPool.hasPool());
+        });
+
+        it('Should work with adding and retrieving queries', async () => {
+            const res = await pool.query('SELECT * FROM employees');
+            const ids = res.rows.map((row) => row.id);
+            const names = res.rows.map((row) => row.name);
+
+            assert.strictEqual(res.rowCount, 3,
+                'Failed to retrieve correct number of rows.');
+
+            assert.ok(ids.includes(1) && ids.includes(2) && ids.includes(3),
+                'Failed to retrieve correct ids');
+            
+            assert.ok(names.includes('John Smith') && names.includes('Jane Smith') && names.includes('Robert Polson'),
+                'Failed to retrieve correct names');
+        })
     });
 });
