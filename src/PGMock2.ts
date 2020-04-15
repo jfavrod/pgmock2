@@ -46,7 +46,7 @@ export default class PGMock2 {
      * @namespace connect
      * @example const conn = pgmock.connect();
      */
-    public connect(): IPGClient {
+    public async connect(): Promise<IPGClient> {
         const connection: IPGClient = {
             /**
              * Simulate ending a pg connection.
@@ -71,40 +71,21 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (sql: string, values: any[]): Promise<QueryResult> => {
-                const norm = this.normalize(sql);
-                const validQuery = this.data[norm];
-
-                return new Promise( (resolve, reject) => {
-                    if (validQuery && this.validVals(values, validQuery.valDefs)) {
-                        setTimeout(() => {
-                            resolve(validQuery.response);
-                        }, this.latency);
-                    }
-                    else {
-                        if (!validQuery) {
-                            setTimeout(() => {
-                                reject(new Error('invalid query: ' + sql + ' query hash: ' + norm));
-                            }, this.latency);
-                        }
-                        else {
-                            setTimeout(() => {
-                                reject(new Error('invalid values: ' + JSON.stringify(values)));
-                            }, this.latency);
-                        }
-                    }
-                });
-            },
+            query: (sql: string, values: any[]): Promise<QueryResult> => this.query(sql, values),
 
             /**
              * Simulate releasing a pg connection.
              * @memberof connect
              * @example conn.release();
              */
-            release: () =>  new Promise((res) => res()),
+            release: () => new Promise((res) => res()),
         };
 
-        return connection;
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(connection);
+            }, this.latency);
+        });
     }
 
     /**
@@ -121,6 +102,33 @@ export default class PGMock2 {
      */
     public dropAll(): void {
         this.data = {};
+    }
+
+    public end() { return new Promise((res) => res()); }
+
+    public query(sql: string, values: any[]): Promise<QueryResult> {
+        const norm = this.normalize(sql);
+        const validQuery = this.data[norm];
+
+        return new Promise( (resolve, reject) => {
+            if (validQuery && this.validVals(values, validQuery.valDefs)) {
+                setTimeout(() => {
+                    resolve(validQuery.response);
+                }, this.latency);
+            }
+            else {
+                if (!validQuery) {
+                    setTimeout(() => {
+                        reject(new Error('invalid query: ' + sql + ' query hash: ' + norm));
+                    }, this.latency);
+                }
+                else {
+                    setTimeout(() => {
+                        reject(new Error('invalid values: ' + JSON.stringify(values)));
+                    }, this.latency);
+                }
+            }
+        });
     }
 
     /**
