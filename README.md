@@ -13,6 +13,12 @@ connection to a PostgreSQL database. Both the `pg.Client` and `pg.Pool`
 classes have a `query` method, therefore the mock connection can be
 used to simulate an instance of either class.
 
+Documentation
+-------------
+Live documentation: [here](https://jfavrod.github.io/pgmock2)
+
+To (re)generate documentation: `npm run docs`
+
 Installation
 ------------
 Installation via `npm`.
@@ -28,10 +34,22 @@ simulation, we need to first `add` data.
 ### Adding Queries and their Responses
 ```javascript
 // Simple type checking validation.
-const pgmock = require('pgmock2');
-const pg = new pgmock();
+const PgMock2 = require('./pgmock2').default;
+const client = new PgMock2();
 
-pg.add('SELECT * FROM employees WHERE id = $1', ['number'], {
+client.add('SELECT * FROM employees where id=$1', ['number'], {
+    rowCount: 1,
+    rows: [
+        { id: 1, name: 'John Smith', position: 'application developer' }
+    ]
+});
+```
+
+```typescript
+import PgMock2 from 'pgmock2';
+const pg = new PgMock2();
+
+pg.add('SELECT * FROM employees where id=$1', ['number'], {
     rowCount: 1,
     rows: [
         { id: 1, name: 'John Smith', position: 'application developer' }
@@ -60,14 +78,11 @@ If a query does not require values, simply pass an empty array.
 
 ```javascript
 // Quering without passing values.
-const
-pgmock = require('pgmock2'),
-pg = new pgmock();
-
-pg.add('SELECT * FROM employees', [], {
+client.add('SELECT * FROM employees', [], {
     rowCount: 10,
     rows: [
-        { id: 1, name: 'John Smith', position: 'application developer' }
+        { id: 1, name: 'John Smith', position: 'application developer' },
+        { id: 2, name: 'Jane Doe', position: 'test engineer' }
         // ... more employees omitted ...
     ]
 });
@@ -84,12 +99,12 @@ Now we can create a mock connection and query for data.
 
 ```javascript
 // Get a mock db connection.
-const conn = pg.connect();
+client.connect();
 
-// Query the mock connection.
-conn.query('select * from employees where id=$1;', [1])
-.then(data => console.log(data))
-.catch(err => console.log(err.message));
+client.query('select * from employees where id=$1;', [1])
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err.message));
+});
 ```
 
 Since the query is valid and the values passed are correct in number
@@ -130,6 +145,23 @@ pg.add('SELECT * FROM employees WHERE id = $1', [validateId], {
 });
 ```
 
+Mocking Pool/PoolClient
+-----------------------
+To mock a `pg` Pool/PoolClient workflow.
+
+```javascript
+// Using pg instance from above examples.
+const pool = getPool(pg);
+
+(async function() {
+    const client = await pool.connect();
+    const res =  await client.query('select * from employees');
+    
+    console.log(res.rows);
+    client.release();
+})();
+```
+
 Tests
 -----
 Tests are found in the `test` directory. To execute them, run:
@@ -138,8 +170,9 @@ Tests are found in the `test` directory. To execute them, run:
 npm run test
 ```
 
-Documentation
--------------
-Live documentation: [here](https://jfavrod.github.io/pgmock2)
+### Docker Test
+To run the tests in a docker environment:
 
-To (re)generate documentation: `npm run docs`
+```
+npm run test:docker
+```
