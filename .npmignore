@@ -1,5 +1,14 @@
 .DS_Store
+.dockerignore
+.gitignore
+.travis.yml
+.git/
+Dockerfile
 Jenkinsfile
 tsconfig.json
+tsconfig.tsbuildinfo
 tslint.json
+docs/
+node_modules/
 src/
+test/
