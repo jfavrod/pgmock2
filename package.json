@@ -1,6 +1,6 @@
 {
   "name": "pgmock2",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
@@ -35,7 +35,6 @@
   "devDependencies": {
     "@types/md5": "^2.1.33",
     "@types/mocha": "^7.0.2",
-    "@types/pg": "^7.11.1",
     "acorn": "^7.1.1",
     "minimist": "^1.2.5",
     "mocha": "^7.1.0",
@@ -46,6 +45,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/pg": "^7.11.1",
     "md5": "^2.2.1",
     "pg": "^7.17.1"
   },
