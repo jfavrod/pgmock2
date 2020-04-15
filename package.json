@@ -1,6 +1,10 @@
 {
   "name": "pgmock2",
+<<<<<<< Updated upstream
   "version": "2.0.0-beta.9",
+=======
+  "version": "2.0.0",
+>>>>>>> Stashed changes
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
@@ -10,12 +14,13 @@
     "clean": "rm -rf tsconfig.tsbuildinfo lib",
     "clean:compile": "run-s clean compile",
     "compile": "tsc -p tsconfig.json",
+    "docker:test": "docker run -v ${PWD}:/app -v /app/node_modules pgmock2:dev npm run test --rm",
     "docs": "typedoc src",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "npm:publish": "npm publish",
     "pub": "run-s lint test:docker clean docs compile npm:publish",
-    "test": "./node_modules/.bin/mocha -r ts-node/register test/index.ts",
-    "test:docker": "docker run -v ${PWD}:/app -v /app/node_modules --rm pgmock2:dev"
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/*.test.ts",
+    "test:docker": "run-s build:image docker:test"
   },
   "repository": {
     "type": "git",
