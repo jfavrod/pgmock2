@@ -5,10 +5,10 @@ export default PGMock2;
 
 export function getClient(pgmock?: PGMock2) {
     pgmock = pgmock || new PGMock2();
-    return pgmock.connect() as unknown as Client;
+    return pgmock as unknown as Client;
 }
 
 export function getPool(pgmock?: PGMock2) {
     pgmock = pgmock || new PGMock2();
-    return pgmock.connect() as unknown as Pool;
+    return pgmock as unknown as Pool;
 }
