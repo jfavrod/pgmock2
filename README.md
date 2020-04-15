@@ -110,7 +110,6 @@ client.connect();
 client.query('select * from employees where id=$1;', [1])
     .then((data) => console.log(data))
     .catch((err) => console.log(err.message));
-});
 ```
 
 Since the query is valid and the values passed are correct in number
