@@ -45,6 +45,8 @@ client.add('SELECT * FROM employees where id=$1', ['number'], {
 });
 ```
 
+#### Using TypeScript
+
 ```typescript
 import PgMock2 from 'pgmock2';
 const pg = new PgMock2();
@@ -55,6 +57,10 @@ pg.add('SELECT * FROM employees where id=$1', ['number'], {
         { id: 1, name: 'John Smith', position: 'application developer' }
     ]
 });
+
+(async function() {
+    const clinet = async pg.connect();
+})();
 ```
 
 #### Parameters of the add Method
@@ -150,6 +156,8 @@ Mocking Pool/PoolClient
 To mock a `pg` Pool/PoolClient workflow.
 
 ```javascript
+import pgmock, { getPool } from 'pgmock2';
+...
 // Using pg instance from above examples.
 const pool = getPool(pg);
 
