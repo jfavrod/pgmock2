@@ -1,6 +1,6 @@
 {
   "name": "pgmock2",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
