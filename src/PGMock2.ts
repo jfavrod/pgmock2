@@ -1,6 +1,6 @@
 import md5 from 'md5';
-import { QueryResult } from 'pg';
-import { IPGClient } from './interfaces';
+import { QueryConfig, QueryResult } from 'pg';
+import { IPGClient, IPGMockData } from './interfaces';
 
 /**
  * An NPM module for mocking a connection to a PostgreSQL database.
@@ -12,7 +12,7 @@ import { IPGClient } from './interfaces';
  * ```
  */
 export default class PGMock2 {
-    private data: any = {};
+    private data = {} as IPGMockData;
     private latency = 20;
 
     /**
@@ -71,7 +71,7 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (sql: string, values: any[]): Promise<QueryResult> => this.query(sql, values),
+            query: (sql: string | QueryConfig, values: any[]): Promise<QueryResult> => this.query(sql, values),
 
             /**
              * Simulate releasing a pg connection.
@@ -101,14 +101,23 @@ export default class PGMock2 {
      * Flushes the mock database.
      */
     public dropAll(): void {
-        this.data = {};
+        this.data = {} as IPGMockData;
     }
 
     public end() { return new Promise((res) => res()); }
 
-    public query(sql: string, values: any[]): Promise<QueryResult> {
-        const norm = this.normalize(sql);
-        const validQuery = this.data[norm];
+    public query(query: string | QueryConfig, values: any[]): Promise<QueryResult> {
+        let norm: string;
+        let validQuery;
+
+        if (typeof(query) === 'string') {
+            norm = this.normalize(query);
+        }
+        else {
+            norm = this.normalize(query.text);
+        }
+
+        validQuery = this.data[norm];
 
         return new Promise( (resolve, reject) => {
             if (validQuery && this.validVals(values, validQuery.valDefs)) {
@@ -119,7 +128,7 @@ export default class PGMock2 {
             else {
                 if (!validQuery) {
                     setTimeout(() => {
-                        reject(new Error('invalid query: ' + sql + ' query hash: ' + norm));
+                        reject(new Error('invalid query: ' + query + ' query hash: ' + norm));
                     }, this.latency);
                 }
                 else {
