@@ -1,4 +1,4 @@
-import { QueryResult, QueryConfig, QueryArrayResult } from 'pg';
+import { QueryResult, QueryConfig } from 'pg';
 
 export interface IPGClient {
   end: () => Promise<void>
