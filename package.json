@@ -45,9 +45,9 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/pg": "^7.11.1",
+    "@types/pg": "^7.14.7",
     "md5": "^2.2.1",
-    "pg": "^7.17.1"
+    "pg": "^8.5.1"
   },
   "engines": {
     "node": ">=10.15.0",

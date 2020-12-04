@@ -102,8 +102,7 @@ describe('pgmock2 tests...', () => {
             assert.strictEqual(len < pg.toString().length, true,
                 'Failed to add queries.');
 
-            pg.drop(sql1);
-            pg.drop(sql2);
+            pg.dropAll();
 
             assert.strictEqual(pg.toString().length, len,
                 'Failed to drop queries.');
@@ -220,6 +219,44 @@ describe('pgmock2 tests...', () => {
             assert.rejects(badValues);
         });
     });
+
+    describe("Test connect.query with QueryConfig", () => {
+        const pg = new pgmock()
+
+        const validId = (id) => {
+          return id > 0 && id === Number(parseInt(id))
+        }
+
+        pg.add("SELECT * FROM employees WHERE id = $1", [validId], {
+          rowCount: 1,
+          rows: [
+            { id: 1, name: "John Smith", position: "application developer" },
+          ],
+        })
+
+        it("Should return a valid response", async () => {
+          const client = await pg.connect()
+          const res = await client.query(
+            {
+              text: "SELECT * FROM employees WHERE id = $1",
+              values: [1]
+            }
+          )
+          assert.strictEqual(res.rowCount, 1)
+          assert.strictEqual(res.rows[0].id, 1)
+          assert.strictEqual(res.rows[0].name, "John Smith")
+        })
+
+        it("Should return a valid response", async () => {
+            const client = await pg.connect()
+            const res = await client.query({
+                text: "SELECT * FROM employees WHERE id = $1",
+            }, [1])
+            assert.strictEqual(res.rowCount, 1)
+            assert.strictEqual(res.rows[0].id, 1)
+            assert.strictEqual(res.rows[0].name, "John Smith")
+        })
+    })
 
     describe('Test getClient', () => {
         const client = getClient();
