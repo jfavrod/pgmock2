@@ -109,7 +109,7 @@ export default class PGMock2 {
         this.data = {};
     }
 
-    public end() { return new Promise((res) => res()); }
+    public end() { return new Promise((res) => res(null)); }
 
     public query(sql: string, values: any[] = []): Promise<QueryResult> {
         const norm = this.normalize(sql);
