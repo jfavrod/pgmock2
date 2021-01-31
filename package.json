@@ -31,6 +31,9 @@
     "testing"
   ],
   "author": "Jason Favrod <mail@jasonfavrod.com> (http://jasonfavrod.com)",
+  "contributors": [
+    "RipTheJacker <unknown@none.com> (https://github.com/RipTheJacker)"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/md5": "^2.1.33",
