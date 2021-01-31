@@ -74,7 +74,7 @@ export default class PGMock2 {
             query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
                 if (typeof queryTextOrConfig === 'object') {
                     return this.query(queryTextOrConfig.text, values || queryTextOrConfig.values);
-                };
+                }
                 return this.query(queryTextOrConfig, values);
             },
 
