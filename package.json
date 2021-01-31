@@ -1,11 +1,10 @@
 {
   "name": "pgmock2",
-  "version": "2.0.8",
+  "version": "2.0.6",
   "description": "An NPM module for mocking a connection to a PostgreSQL database.",
   "homepage": "https://jfavrod.github.io/pgmock2/",
   "main": "lib/index.js",
   "scripts": {
-    "prepack": "npm run compile",
     "build": "run-s lint test compile",
     "build:image": "docker image build -t pgmock2:dev .",
     "clean": "rm -rf tsconfig.tsbuildinfo lib",
