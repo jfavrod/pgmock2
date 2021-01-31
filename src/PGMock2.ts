@@ -71,7 +71,20 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (sql: string | QueryConfig, values: any[]): Promise<QueryResult> => this.query(sql, values),
+            query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
+                if (typeof queryTextOrConfig === 'object') {
+                    if (values) {
+                        return this.query(queryTextOrConfig.text, values);
+                    }
+                    else if (queryTextOrConfig.values) {
+                        return this.query(queryTextOrConfig.text, queryTextOrConfig.values);
+                    }
+                }
+                if (!values) {
+                    values = [];
+                }
+                return this.query(queryTextOrConfig, values);
+            },
 
             /**
              * Simulate releasing a pg connection.
@@ -104,7 +117,7 @@ export default class PGMock2 {
         this.data = {} as IPGMockData;
     }
 
-    public end() { return new Promise((res) => res()); }
+    public end() { return new Promise((res) => res(null)); }
 
     public query(query: string | QueryConfig, values: any[]): Promise<QueryResult> {
         let norm: string;

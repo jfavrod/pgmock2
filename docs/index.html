@@ -4,16 +4,17 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>pgmock2</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for pgmock2">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -51,11 +50,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>pgmock2</h1>
 		</div>
 	</div>
@@ -75,11 +69,17 @@
 					connection to a PostgreSQL database. Both the <code>pg.Client</code> and <code>pg.Pool</code>
 					classes have a <code>query</code> method, therefore the mock connection can be
 				used to simulate an instance of either class.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Live documentation: <a href="https://jfavrod.github.io/pgmock2">here</a></p>
+				<p>To (re)generate documentation: <code>npm run docs</code></p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
 				<p>Installation via <code>npm</code>.</p>
-				<pre><code>npm i --<span class="hljs-built_in">dev</span>-<span class="hljs-built_in">save</span> pgmock2</code></pre>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">i</span><span style="color: #000000"> --</span><span style="color: #001080">dev</span><span style="color: #000000">-</span><span style="color: #001080">save</span><span style="color: #000000"> </span><span style="color: #001080">pgmock2</span>
+</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
@@ -88,16 +88,34 @@
 				<a href="#adding-queries-and-their-responses" id="adding-queries-and-their-responses" style="color: inherit; text-decoration: none;">
 					<h3>Adding Queries and their Responses</h3>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Simple type checking validation.</span>
-<span class="hljs-keyword">const</span> pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>);
-<span class="hljs-keyword">const</span> pg = <span class="hljs-keyword">new</span> pgmock();
+				<pre><code class="language-javascript"><span style="color: #008000">// Simple type checking validation.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">PgMock2</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./pgmock2&#039;</span><span style="color: #000000">).</span><span style="color: #001080">default</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">PgMock2</span><span style="color: #000000">();</span>
 
-pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>, [<span class="hljs-string">'number'</span>], {
-    <span class="hljs-attr">rowCount</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">rows</span>: [
-        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
-    ]
-});</code></pre>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees where id=$1&#039;</span><span style="color: #000000">, [</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">], {</span>
+<span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">rows:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">        { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Smith&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application developer&#039;</span><span style="color: #000000"> }</span>
+<span style="color: #000000">    ]</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#using-typescript" id="using-typescript" style="color: inherit; text-decoration: none;">
+					<h4>Using TypeScript</h4>
+				</a>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">PgMock2</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pgmock2&#039;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">PgMock2</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">pg</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees where id=$1&#039;</span><span style="color: #000000">, [</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">], {</span>
+<span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">rows:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">        { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Smith&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application developer&#039;</span><span style="color: #000000"> }</span>
+<span style="color: #000000">    ]</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">clinet</span><span style="color: #000000"> = </span><span style="color: #001080">async</span><span style="color: #000000"> </span><span style="color: #001080">pg</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">();</span>
+<span style="color: #000000">})();</span>
+</code></pre>
 				<a href="#parameters-of-the-add-method" id="parameters-of-the-add-method" style="color: inherit; text-decoration: none;">
 					<h4>Parameters of the add Method</h4>
 				</a>
@@ -118,18 +136,16 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>,
 					can be used at query time must be <code>typeof</code> &quot;<code>number</code>&quot;. Functions can
 				also be used to validate values (described later).</p>
 				<p>If a query does not require values, simply pass an empty array.</p>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Quering without passing values.</span>
-<span class="hljs-keyword">const</span>
-pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>),
-pg = <span class="hljs-keyword">new</span> pgmock();
-
-pg.add(<span class="hljs-string">'SELECT * FROM employees'</span>, [], {
-    <span class="hljs-attr">rowCount</span>: <span class="hljs-number">10</span>,
-    <span class="hljs-attr">rows</span>: [
-        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
-        <span class="hljs-comment">// ... more employees omitted ...</span>
-    ]
-});</code></pre>
+				<pre><code class="language-javascript"><span style="color: #008000">// Quering without passing values.</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees&#039;</span><span style="color: #000000">, [], {</span>
+<span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">10</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">rows:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">        { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Smith&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application developer&#039;</span><span style="color: #000000"> },</span>
+<span style="color: #000000">        { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Jane Doe&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;test engineer&#039;</span><span style="color: #000000"> }</span>
+<span style="color: #000000">        </span><span style="color: #008000">// ... more employees omitted ...</span>
+<span style="color: #000000">    ]</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#query-response" id="query-response" style="color: inherit; text-decoration: none;">
 					<h5>Query Response</h5>
 				</a>
@@ -140,18 +156,19 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees'</span>, [], {
 					<h3>Quering the Mock DB</h3>
 				</a>
 				<p>Now we can create a mock connection and query for data.</p>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Get a mock db connection.</span>
-<span class="hljs-keyword">const</span> conn = pg.connect();
+				<pre><code class="language-javascript"><span style="color: #008000">// Get a mock db connection.</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">();</span>
 
-<span class="hljs-comment">// Query the mock connection.</span>
-conn.query(<span class="hljs-string">'select * from employees where id=$1;'</span>, [<span class="hljs-number">1</span>])
-.then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(data))
-.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(err.message));</code></pre>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">query</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;select * from employees where id=$1;&#039;</span><span style="color: #000000">, [</span><span style="color: #098658">1</span><span style="color: #000000">])</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">data</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">))</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">catch</span><span style="color: #000000">((</span><span style="color: #001080">err</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">.</span><span style="color: #001080">message</span><span style="color: #000000">));</span>
+</code></pre>
 				<p>Since the query is valid and the values passed are correct in number
 				and type, we should see the expected output.</p>
-				<pre><code>{ <span class="hljs-attribute">rowCount</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attribute">rows</span>:
-   [ { <span class="hljs-attribute">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attribute">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attribute">position</span>: <span class="hljs-string">'application developer'</span> } ] }</code></pre>
+				<pre><code><span style="color: #000000">{ rowCount: </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">  rows:</span>
+<span style="color: #000000">   [ { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Smith&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application developer&#039;</span><span style="color: #000000"> } ] }</span>
+</code></pre>
 				<a href="#using-functions-for-validation" id="using-functions-for-validation" style="color: inherit; text-decoration: none;">
 					<h3>Using Functions for Validation</h3>
 				</a>
@@ -159,59 +176,76 @@ conn.query(<span class="hljs-string">'select * from employees where id=$1;'</spa
 				validation) we can use functions.</p>
 				<p>Let&#39;s say that our employee IDs must be whole numbers greater than 0.
 				We can use a validation function like this:</p>
-				<pre><code class="language-javascript"><span class="hljs-comment">// Advanced validation with functions.</span>
-<span class="hljs-keyword">const</span> pgmock = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pgmock2'</span>);
-<span class="hljs-keyword">const</span> pg = <span class="hljs-keyword">new</span> pgmock();
+				<pre><code class="language-javascript"><span style="color: #008000">// Advanced validation with functions.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pgmock</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;pgmock2&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">pgmock</span><span style="color: #000000">();</span>
 
-<span class="hljs-keyword">const</span> validateId = <span class="hljs-function">(<span class="hljs-params">id</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> (
-        <span class="hljs-keyword">typeof</span>(id) === <span class="hljs-string">'number'</span>
-        &amp;&amp; <span class="hljs-built_in">isFinite</span>(id)
-        &amp;&amp; id &gt; <span class="hljs-number">0</span>
-        &amp;&amp; id === <span class="hljs-built_in">Number</span>(id.toFixed(<span class="hljs-number">0</span>)
-    );
-}
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">validateId</span><span style="color: #000000"> = (</span><span style="color: #001080">id</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">typeof</span><span style="color: #000000">(</span><span style="color: #001080">id</span><span style="color: #000000">) === </span><span style="color: #A31515">&#039;number&#039;</span>
+<span style="color: #000000">        &amp;&amp; </span><span style="color: #795E26">isFinite</span><span style="color: #000000">(</span><span style="color: #001080">id</span><span style="color: #000000">)</span>
+<span style="color: #000000">        &amp;&amp; </span><span style="color: #001080">id</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span>
+<span style="color: #000000">        &amp;&amp; </span><span style="color: #001080">id</span><span style="color: #000000"> === </span><span style="color: #267F99">Number</span><span style="color: #000000">(</span><span style="color: #001080">id</span><span style="color: #000000">.</span><span style="color: #795E26">toFixed</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">)</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">}</span>
 
-pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>, [validateId], {
-    <span class="hljs-attr">rowCount</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">rows</span>: [
-        { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'John Smith'</span>, <span class="hljs-attr">position</span>: <span class="hljs-string">'application developer'</span> }
-    ]
-});</code></pre>
+<span style="color: #001080">pg</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees WHERE id = $1&#039;</span><span style="color: #000000">, [</span><span style="color: #001080">validateId</span><span style="color: #000000">], {</span>
+<span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">rows:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">        { </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Smith&#039;</span><span style="color: #000000">, </span><span style="color: #001080">position:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application developer&#039;</span><span style="color: #000000"> }</span>
+<span style="color: #000000">    ]</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#mocking-poolpoolclient" id="mocking-poolpoolclient" style="color: inherit; text-decoration: none;">
+					<h2>Mocking Pool/PoolClient</h2>
+				</a>
+				<p>To mock a <code>pg</code> Pool/PoolClient workflow.</p>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">pgmock</span><span style="color: #000000">, { </span><span style="color: #001080">getPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pgmock2&#039;</span><span style="color: #000000">;</span>
+<span style="color: #000000">...</span>
+<span style="color: #008000">// Using pg instance from above examples.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pool</span><span style="color: #000000"> = </span><span style="color: #795E26">getPool</span><span style="color: #000000">(</span><span style="color: #001080">pg</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">pool</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">res</span><span style="color: #000000"> =  </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">query</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;select * from employees&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #001080">rows</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">release</span><span style="color: #000000">();</span>
+<span style="color: #000000">})();</span>
+</code></pre>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
 				</a>
 				<p>Tests are found in the <code>test</code> directory. To execute them, run:</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span></code></pre>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">run</span><span style="color: #000000"> </span><span style="color: #001080">test</span>
+</code></pre>
+				<a href="#docker-test" id="docker-test" style="color: inherit; text-decoration: none;">
+					<h3>Docker Test</h3>
 				</a>
-				<p>Live documentation: <a href="https://jfavrod.github.io/pgmock2">here</a></p>
-				<p>To (re)generate documentation: <code>npm run docs</code></p>
+				<p>To run the tests in a docker environment:</p>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">run</span><span style="color: #000000"> test:</span><span style="color: #001080">docker</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/pgmock2.html">PGMock2</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/index.html">index</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/interfaces.html">interfaces</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="classes/pgmock2.html" class="tsd-kind-icon">PGMock2</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ipgclient.html" class="tsd-kind-icon">IPGClient</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getpool" class="tsd-kind-icon">get<wbr>Pool</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -222,57 +256,13 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>,
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -282,6 +272,5 @@ pg.add(<span class="hljs-string">'SELECT * FROM employees WHERE id = $1'</span>,
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
