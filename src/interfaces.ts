@@ -1,7 +1,8 @@
-import { QueryResult } from 'pg';
+import { QueryResult, QueryConfig } from 'pg';
 
 export interface IPGClient {
-    end: () => Promise<void>;
-    release: () => Promise<void>;
-    query(sql: string, values: any[]): Promise<QueryResult>;
+  end: () => Promise<void>
+  release: () => Promise<void>
+  query(queryText: string | QueryConfig, values: any[]): Promise<QueryResult>
+  query(queryConfig: QueryConfig): Promise<QueryResult>
 }

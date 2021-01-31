@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import { QueryResult } from 'pg';
+import { QueryConfig, QueryResult } from 'pg';
 import { IPGClient } from './interfaces';
 
 /**
@@ -71,7 +71,12 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (sql: string, values: any[]): Promise<QueryResult> => this.query(sql, values),
+            query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
+                if (typeof queryTextOrConfig === 'object') {
+                    return this.query(queryTextOrConfig.text, values || queryTextOrConfig.values);
+                };
+                return this.query(queryTextOrConfig, values);
+            },
 
             /**
              * Simulate releasing a pg connection.
@@ -104,9 +109,9 @@ export default class PGMock2 {
         this.data = {};
     }
 
-    public end() { return new Promise((res) => res()); }
+    public end() { return new Promise((res) => res(null)); }
 
-    public query(sql: string, values: any[]): Promise<QueryResult> {
+    public query(sql: string, values: any[] = []): Promise<QueryResult> {
         const norm = this.normalize(sql);
         const validQuery = this.data[norm];
 
