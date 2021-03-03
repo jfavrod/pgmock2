@@ -152,6 +152,80 @@ describe('pgmock2 tests...', () => {
         });
     });
 
+    describe('Test `pool.query` Method', () => {
+        const pg = new pgmock();
+        const query = 'SELECT * FROM schema.table;';
+
+        pg.add(query, [], {
+            rowCount: 1,
+            rows: [
+                {attrib1: 'val1', attrib2: 'val2'}
+            ]
+        });
+
+        it('Should have the values of the added item.', async () => {
+            const pgPool = await getPool(pg);
+            const res = await pgPool.query(query, []);
+            assert.equal(res.rows[0].attrib1, 'val1');
+            assert.equal(res.rows[0].attrib2, 'val2');
+        });
+
+        it('Should have the values of the added item with QueryConfig.', async () => {
+            const pgPool = await getPool(pg);
+            const res = await pgPool.query({ text: query });
+            assert.equal(res.rows[0].attrib1, 'val1');
+            assert.equal(res.rows[0].attrib2, 'val2');
+        });
+
+        it('Should respond with an error if given wrong values.', async () => {
+            const pgPool = await getPool(pg);
+            let res: QueryResult;
+
+            try {
+                res = await pgPool.query(query, ['hello']);
+            }
+            catch (err) {
+                assert.ok(err.message.match(/invalid values/), `Expected invalid values, instead got ${err.message}`);
+            }
+        });
+
+        it('Should respond with an error if given wrong values with QueryConfig.', async () => {
+            const pgPool = await getPool(pg);
+            let res: QueryResult;
+
+            try {
+                res = await pgPool.query({ text: query, values: ['hello'] });
+            }
+            catch (err) {
+                assert.ok(err.message.match(/invalid values/), `Expected invalid values, instead got ${err.message}`);
+            }
+        });
+
+        it('Should respond with an error if given invalid query.', async () => {
+            const pgPool = await getPool(pg);
+            let res: QueryResult;
+
+            try {
+                res = await pgPool.query('select * schema.table', []);
+            }
+            catch (err) {
+                assert.ok(err.message.match(/invalid query/));
+            }
+        });
+
+        it('Should respond with an error if given invalid query with QueryConfig.', async () => {
+            const pgPool = await getPool(pg);
+            let res: QueryResult;
+
+            try {
+                res = await pgPool.query({ text: 'select * schema.table' });
+            }
+            catch (err) {
+                assert.ok(err.message.match(/invalid query/));
+            }
+        });
+    });
+
     describe('Test connect.query with function validation and valid input', () => {
         const pg = new pgmock();
 
@@ -169,6 +243,38 @@ describe('pgmock2 tests...', () => {
         it('Should return a valid response', async () => {
             const client = await pg.connect();
             const res = await client.query('SELECT * FROM employees WHERE id = $1', [1]);
+            assert.strictEqual(res.rowCount, 1);
+            assert.strictEqual(res.rows[0].id, 1);
+            assert.strictEqual(res.rows[0].name, 'John Smith');
+        });
+    });
+    
+    describe('Test pool.query with function validation and valid input', () => {
+        const pg = new pgmock();
+        const query = 'SELECT * FROM employees WHERE id = $1';
+        
+        const validId = (id) => {
+            return id > 0 && id === Number(parseInt(id));
+        };
+
+        pg.add(query, [validId], {
+            rowCount: 1,
+            rows: [
+                { id: 1, name: 'John Smith', position: 'application developer' }
+            ]
+        });
+
+        it('Should return a valid response', async () => {
+            const pgPool = await getPool(pg);
+            const res = await pgPool.query(query, [1]);
+            assert.strictEqual(res.rowCount, 1);
+            assert.strictEqual(res.rows[0].id, 1);
+            assert.strictEqual(res.rows[0].name, 'John Smith');
+        });
+
+        it('Should return a valid response with QueryConfig', async () => {
+            const pgPool = await getPool(pg);
+            const res = await pgPool.query({ text: query, values: [1] });
             assert.strictEqual(res.rowCount, 1);
             assert.strictEqual(res.rows[0].id, 1);
             assert.strictEqual(res.rows[0].name, 'John Smith');
@@ -256,7 +362,90 @@ describe('pgmock2 tests...', () => {
             assert.strictEqual(res.rows[0].id, 1)
             assert.strictEqual(res.rows[0].name, "John Smith")
         })
-    })
+    });
+
+    describe('Test pool.query with function validation and invalid input', () => {
+        const pg = new pgmock();
+        const query = 'SELECT * FROM employees WHERE id = $1';
+
+        const validId = (id: any) => {
+            return typeof(id) === 'number' && isFinite(id) && id > 0 && id === Number(id.toFixed(0));
+        };
+
+        pg.add(query, [validId], {
+            rowCount: 1,
+            rows: [
+                { id: 1, name: 'John Smith', position: 'application developer' }
+            ]
+        });
+
+        it('Should reject if value is a string.', async () => {
+            const pool = await getPool(pg);
+
+            const badValues = async () => {
+                await pool.query(query, ['1']);
+            };
+
+            assert.rejects(badValues);
+        });
+
+        it('Should reject if value is 0 or less.', async () => {
+            const pool = await getPool(pg);
+
+            const badValues = async () => {
+                await pool.query(query, [0]);
+            };
+
+            assert.rejects(badValues);
+        });
+
+        it('Should reject if value is a float.', async () => {
+            const pool = await getPool(pg);
+
+            const badValues = async () => {
+                await pool.query(query, [1.1]);
+            };
+
+            assert.rejects(badValues);
+        });
+    });
+
+    describe("Test pool.query with QueryConfig", () => {
+        const pg = new pgmock();
+        const query = 'SELECT * FROM employees WHERE id = $1';
+
+        const validId = (id) => {
+          return id > 0 && id === Number(parseInt(id))
+        }
+
+        pg.add(query, [validId], {
+          rowCount: 1,
+          rows: [
+            { id: 1, name: "John Smith", position: "application developer" },
+          ],
+        })
+
+        it("Should return a valid response", async () => {
+            const pool = await getPool(pg);
+            const res = await pool.query({
+                text: "SELECT * FROM employees WHERE id = $1",
+                values: [1]
+            })
+            assert.strictEqual(res.rowCount, 1)
+            assert.strictEqual(res.rows[0].id, 1)
+            assert.strictEqual(res.rows[0].name, "John Smith")
+        })
+
+        it("Should return a valid response", async () => {
+            const pool = await getPool(pg);
+            const res = await pool.query({
+                text: "SELECT * FROM employees WHERE id = $1",
+            }, [1])
+            assert.strictEqual(res.rowCount, 1)
+            assert.strictEqual(res.rows[0].id, 1)
+            assert.strictEqual(res.rows[0].name, "John Smith")
+        })
+    });
 
     describe('Test getClient', () => {
         const client = getClient();

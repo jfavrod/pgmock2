@@ -72,9 +72,6 @@ export default class PGMock2 {
              * }
              */
             query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
-                if (typeof queryTextOrConfig === 'object') {
-                    return this.query(queryTextOrConfig.text, values || queryTextOrConfig.values);
-                }
                 return this.query(queryTextOrConfig, values);
             },
 
@@ -111,7 +108,14 @@ export default class PGMock2 {
 
     public end() { return new Promise((res) => res(null)); }
 
-    public query(sql: string, values: any[] = []): Promise<QueryResult> {
+    public query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> {
+        if (typeof queryTextOrConfig === 'object') {
+            return this.performQuery(queryTextOrConfig.text, values || queryTextOrConfig.values);
+        }
+        return this.performQuery(queryTextOrConfig, values);
+    }
+    
+    private performQuery(sql: string, values: any[] = []): Promise<QueryResult> {
         const norm = this.normalize(sql);
         const validQuery = this.data[norm];
 
