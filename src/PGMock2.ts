@@ -72,17 +72,6 @@ export default class PGMock2 {
              * }
              */
             query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
-                if (typeof queryTextOrConfig === 'object') {
-                    if (values) {
-                        return this.query(queryTextOrConfig.text, values);
-                    }
-                    else if (queryTextOrConfig.values) {
-                        return this.query(queryTextOrConfig.text, queryTextOrConfig.values);
-                    }
-                }
-                if (!values) {
-                    values = [];
-                }
                 return this.query(queryTextOrConfig, values);
             },
 
@@ -119,38 +108,11 @@ export default class PGMock2 {
 
     public end() { return new Promise((res) => res(null)); }
 
-    public query(query: string | QueryConfig, values: any[]): Promise<QueryResult> {
-        let norm: string;
-        let validQuery;
-
-        if (typeof(query) === 'string') {
-            norm = this.normalize(query);
+    public query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> {
+        if (typeof queryTextOrConfig === 'object') {
+            return this.performQuery(queryTextOrConfig.text, values || queryTextOrConfig.values);
         }
-        else {
-            norm = this.normalize(query.text);
-        }
-
-        validQuery = this.data[norm];
-
-        return new Promise( (resolve, reject) => {
-            if (validQuery && this.validVals(values, validQuery.valDefs)) {
-                setTimeout(() => {
-                    resolve(validQuery.response);
-                }, this.latency);
-            }
-            else {
-                if (!validQuery) {
-                    setTimeout(() => {
-                        reject(new Error('invalid query: ' + query + ' query hash: ' + norm));
-                    }, this.latency);
-                }
-                else {
-                    setTimeout(() => {
-                        reject(new Error('invalid values: ' + JSON.stringify(values)));
-                    }, this.latency);
-                }
-            }
-        });
+        return this.performQuery(queryTextOrConfig, values);
     }
 
     /**
@@ -213,6 +175,31 @@ export default class PGMock2 {
     private normalize(rawQuery: string): string {
         const norm = rawQuery.toLowerCase().replace(/\s/g, '');
         return md5(norm.replace(/;$/, '')).toString();
+    }
+
+    private performQuery(sql: string, values: any[] = []): Promise<QueryResult> {
+        const norm = this.normalize(sql);
+        const validQuery = this.data[norm];
+
+        return new Promise( (resolve, reject) => {
+            if (validQuery && this.validVals(values, validQuery.valDefs)) {
+                setTimeout(() => {
+                    resolve(validQuery.response);
+                }, this.latency);
+            }
+            else {
+                if (!validQuery) {
+                    setTimeout(() => {
+                        reject(new Error('invalid query: ' + sql + ' query hash: ' + norm));
+                    }, this.latency);
+                }
+                else {
+                    setTimeout(() => {
+                        reject(new Error('invalid values: ' + JSON.stringify(values)));
+                    }, this.latency);
+                }
+            }
+        });
     }
 
     private validVals(values: any[], defs: any[]) {
