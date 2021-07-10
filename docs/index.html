@@ -90,7 +90,7 @@
 				</a>
 				<pre><code class="language-javascript"><span style="color: #008000">// Simple type checking validation.</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">PgMock2</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./pgmock2&#039;</span><span style="color: #000000">).</span><span style="color: #001080">default</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">PgMock2</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">PgMock2</span><span style="color: #000000">();</span>
 
 <span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees where id=$1&#039;</span><span style="color: #000000">, [</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">], {</span>
 <span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
@@ -103,7 +103,7 @@
 					<h4>Using TypeScript</h4>
 				</a>
 				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">PgMock2</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pgmock2&#039;</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">PgMock2</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">PgMock2</span><span style="color: #000000">();</span>
 
 <span style="color: #001080">pg</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;SELECT * FROM employees where id=$1&#039;</span><span style="color: #000000">, [</span><span style="color: #A31515">&#039;number&#039;</span><span style="color: #000000">], {</span>
 <span style="color: #000000">    </span><span style="color: #001080">rowCount:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
@@ -178,7 +178,7 @@
 				We can use a validation function like this:</p>
 				<pre><code class="language-javascript"><span style="color: #008000">// Advanced validation with functions.</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pgmock</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;pgmock2&#039;</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">pgmock</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pg</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">pgmock</span><span style="color: #000000">();</span>
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">validateId</span><span style="color: #000000"> = (</span><span style="color: #001080">id</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
@@ -241,6 +241,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/interfaces.html">interfaces</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/typeguards.html">typeguards</a>
 					</li>
 				</ul>
 			</nav>
