@@ -6,17 +6,16 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "run-s lint test compile",
-    "build:image": "docker image build -t pgmock2:dev .",
     "clean": "rm -rf tsconfig.tsbuildinfo lib",
     "clean:compile": "run-s clean compile",
     "compile": "tsc -p tsconfig.json",
-    "docker:test": "docker run -v ${PWD}:/app -v /app/node_modules pgmock2:dev npm run test --rm",
+    "docker:test": "docker-compose build && docker-compose up",
     "docs": "typedoc src",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "npm:publish": "npm publish",
     "pub": "run-s lint test:docker clean docs compile npm:publish",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/*.test.ts",
-    "test:docker": "run-s build:image docker:test"
+    "test:docker": "npm run docker:test"
   },
   "repository": {
     "type": "git",
@@ -32,7 +31,8 @@
   ],
   "author": "Jason Favrod <mail@jasonfavrod.com> (http://jasonfavrod.com)",
   "contributors": [
-    "RipTheJacker <unknown@none.com> (https://github.com/RipTheJacker)"
+    "RipTheJacker <unknown@none.com> (https://github.com/RipTheJacker)",
+    "Dorinel Panaite <van.panaite@gmail.com> (http://vanpana.github.io/)"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -53,7 +53,7 @@
     "pg": "^8.5.1"
   },
   "engines": {
-    "node": ">=10.15.0",
-    "npm": ">=6.13.0"
+    "node": ">=12.16.1",
+    "npm": ">=7.8.0"
   }
 }
