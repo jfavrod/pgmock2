@@ -1,0 +1,10 @@
+version: '3'
+services:
+    pgmock2:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        command: "npm run test"
+        volumes:
+            - "${PWD}/src:/app/src"
+            - "${PWD}/test:/app/test"
