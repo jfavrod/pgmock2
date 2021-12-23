@@ -11,7 +11,7 @@
     "compile": "tsc -p tsconfig.json",
     "docker:test": "docker-compose build && docker-compose up",
     "docs": "typedoc src",
-    "lint": "tslint -c tslint.json src/**/*.ts",
+    "lint": "eslint -c .eslintrc.js --ext .ts src/",
     "npm:publish": "npm publish",
     "pub": "run-s lint test:docker clean docs compile npm:publish",
     "test": "./node_modules/.bin/mocha -r ts-node/register test/*.test.ts",
@@ -35,22 +35,29 @@
     "Dorinel Panaite <van.panaite@gmail.com> (http://vanpana.github.io/)"
   ],
   "license": "MIT",
+  "dependencies": {
+    "md5": "^2.3.0",
+    "pg": "^8.7.1"
+  },
   "devDependencies": {
-    "@types/md5": "^2.1.33",
-    "@types/mocha": "^7.0.2",
-    "@types/pg": "^7.14.7",
+    "@types/md5": "^2.3.1",
+    "@types/mocha": "^9.0.0",
+    "@types/pg": "^8.6.1",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
     "acorn": "^7.1.1",
+    "eslint": "^8.4.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsdoc": "^37.2.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "minimist": "^1.2.5",
-    "mocha": "^8.1.3",
+    "mocha": "^9.1.3",
     "npm-run-all": "^4.1.5",
-    "ts-node": "^8.5.4",
+    "ts-node": "^10.4.0",
     "tslint": "^5.20.1",
     "typedoc": "^0.20.20",
-    "typescript": "^3.9.7"
-  },
-  "dependencies": {
-    "md5": "^2.2.1",
-    "pg": "^8.5.1"
+    "typescript": "^4.5.3"
   },
   "engines": {
     "node": ">=12.16.1",

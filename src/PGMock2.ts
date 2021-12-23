@@ -33,7 +33,7 @@ export default class PGMock2 {
      * });
      * ```
      */
-    public add(query: string, valueDefs: any[], response: object) {
+    public add(query: string, valueDefs: any[], response: QueryResult) {
         this.data[this.normalize(query)] = {
             query,
             response,
@@ -71,9 +71,9 @@ export default class PGMock2 {
              *   ]
              * }
              */
-            query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => {
-                return this.query(queryTextOrConfig, values);
-            },
+            query: (queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult> => (
+                this.query(queryTextOrConfig, values)
+            ),
 
             /**
              * Simulate releasing a pg connection.
@@ -177,7 +177,7 @@ export default class PGMock2 {
         return md5(norm.replace(/;$/, '')).toString();
     }
 
-    private performQuery(sql: string, values: any[] = []): Promise<QueryResult> {
+    private performQuery(sql: string, values: unknown[] = []): Promise<QueryResult> {
         const norm = this.normalize(sql);
         const validQuery = this.data[norm];
 
@@ -202,7 +202,7 @@ export default class PGMock2 {
         });
     }
 
-    private validVals(values: any[], defs: any[]) {
+    private validVals(values: unknown[], defs: unknown[]) {
         let bool = true;
 
         if (values && values.length) {
@@ -219,7 +219,7 @@ export default class PGMock2 {
                 else if (typeof(defs[i]) === 'function') {
                     // Change bool to false if false returned from
                     // value definition function.
-                    if (!defs[i](val)) { bool = false; }
+                    if (!(defs[i] as CallableFunction)(val)) { bool = false; }
                 }
             });
         }

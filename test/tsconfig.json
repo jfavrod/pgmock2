@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "strict": true,
+    "target": "es5"
+  },
+  "exclude": [
+    "tsconfig.json"
+  ]
+}

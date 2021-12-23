@@ -10,7 +10,7 @@ export interface IPGClient {
 export interface IPGMockData {
     [index: string]: {
         query: string;
-        response: any;
-        valDefs: any[];
+        response: QueryResult;
+        valDefs: unknown[];
     };
 }
