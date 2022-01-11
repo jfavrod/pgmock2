@@ -7,10 +7,15 @@ export interface IPGClient {
     query(queryConfig: QueryConfig): Promise<QueryResult>;
 }
 
+export interface MockQueryResult extends Omit<Partial<QueryResult>, 'rows' | 'rowCount'> {
+    rows: any[];
+    rowCount: number;
+}
+
 export interface IPGMockData {
     [index: string]: {
         query: string;
-        response: QueryResult;
+        response: MockQueryResult;
         valDefs: unknown[];
     };
 }

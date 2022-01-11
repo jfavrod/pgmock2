@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import { QueryConfig, QueryResult } from 'pg';
-import { IPGClient, IPGMockData } from './interfaces';
+import { IPGClient, IPGMockData, MockQueryResult } from './interfaces';
 
 /**
  * An NPM module for mocking a connection to a PostgreSQL database.
@@ -33,7 +33,7 @@ export default class PGMock2 {
      * });
      * ```
      */
-    public add(query: string, valueDefs: any[], response: QueryResult) {
+    public add(query: string, valueDefs: any[], response: MockQueryResult) {
         this.data[this.normalize(query)] = {
             query,
             response,
@@ -184,7 +184,7 @@ export default class PGMock2 {
         return new Promise( (resolve, reject) => {
             if (validQuery && this.validVals(values, validQuery.valDefs)) {
                 setTimeout(() => {
-                    resolve(validQuery.response);
+                    resolve(validQuery.response as QueryResult);
                 }, this.latency);
             }
             else {

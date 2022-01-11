@@ -5,7 +5,7 @@ import { Pool, QueryResult } from 'pg';
 import { IPGClient } from '../src/interfaces';
 import { isIPGClient } from '../src/typeguards';
 
-import pgmock, { getClient, getPool } from '../src';
+import pgmock, { getPool } from '../src';
 
 describe('pgmock2 tests...', () => {
     describe('Test Instance', () => {
