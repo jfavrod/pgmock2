@@ -59,7 +59,7 @@ pg.add('SELECT * FROM employees where id=$1', ['number'], {
 });
 
 (async function() {
-    const clinet = async pg.connect();
+    const clinet = await pg.connect();
 })();
 ```
 
