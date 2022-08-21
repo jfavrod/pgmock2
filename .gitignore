@@ -1,9 +1,6 @@
 .DS_Store
 .vscode
 
-# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
 # Optional npm cache directory
 .npm
 
@@ -19,5 +16,3 @@
 tsconfig.tsbuildinfo
 lib/
 node_modules/
-package-lock.json
-
