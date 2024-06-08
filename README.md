@@ -138,7 +138,7 @@ const validateId = (id) => {
         typeof(id) === 'number'
         && isFinite(id)
         && id > 0
-        && id === Number(id.toFixed(0)
+        && id === Number(id.toFixed(0))
     );
 }
 
